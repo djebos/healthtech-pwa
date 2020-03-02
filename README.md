@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Install http-server to be able to use service workers. `npm install http-server -g`. Run it from project root using `npx http-server -p 8080 -c-1 dist/pwa`.
 
 ## Code scaffolding
 
@@ -12,7 +12,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build --prod` to build the project. The build artifacts will be stored in the `dist/` directory. After next page reload service worker downloads app update and install it in browser.
 
 ## Running unit tests
 
