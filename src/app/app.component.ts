@@ -1,32 +1,40 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import { Item, ApiService } from './services/api.service';
+import {ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'firstpwa';
   items: Array<Item>;
   deferredPrompt: any;
   showButton = false;
+  isLoading = false;
 
-  constructor(private apiService: ApiService) {
-  }
+  constructor(private route: ActivatedRoute,
+              private http: HttpClient,
+              private router: Router) {
+    this.router.events.subscribe((event: RouterEvent) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.isLoading = true;
+          break;
+        }
 
-  ngOnInit() {
-    this.fetchData();
-  }
-
-  fetchData() {
-    this.apiService.fetch().subscribe(
-      (data: Array<Item>) => {
-        console.log(data);
-        this.items = data;
-      }, (err) => {
-        console.log(err);
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.isLoading = false;
+          break;
+        }
+        default: {
+          break;
+        }
       }
-    );
+    });
   }
 
   @HostListener('window:beforeinstallprompt', ['$event'])
