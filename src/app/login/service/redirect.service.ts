@@ -9,10 +9,7 @@ import {AuthService} from './auth-service.service';
 export class RedirectService {
 
   private homePages: Map<string, string> = new Map<string, string>([
-      ['CASHIER', '/orders'],
-      ['SENIOR_CASHIER', '/orders'],
-      ['MERCHANDISE', '/products'],
-      ['ADMIN', '/orders']
+      ['USER', '/dashboard']
     ]
   );
 

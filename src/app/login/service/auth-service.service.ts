@@ -4,16 +4,18 @@ import {UserProfile} from '../../data/UserProfile';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private static TOKEN_STORAGE_KEY = 'accessToken';
-  private static USER_STORAGE_KEY = 'user';
-  public static HOST = 'http://localhost:4200';
-  private _authCallBackUri: string = AuthService.HOST + '/logincallback';
-  private _redirectUri: string = null;
+  private static readonly TOKEN_STORAGE_KEY = 'accessToken';
+  private static readonly USER_STORAGE_KEY = 'user';
+  private static readonly hostUrl = environment.hostUrl;
+  private static readonly authCallBackUri: string = AuthService.hostUrl + '/logincallback';
+  // tslint:disable-next-line:variable-name
+  private static _redirectUri: string = null;
 
   constructor(private router: Router, private http: HttpClient) {
   }
@@ -23,12 +25,12 @@ export class AuthService {
   }
 
   public signInWithOAuth(providerId: string) {
-    return window.open(`http://localhost:8081/rest/oauth2/authorize/${providerId}?redirect_uri=${this.authCallBackUri}`, '_self');
+    return window.open(`${environment.apiUrl}/oauth2/authorize/${providerId}?redirect_uri=${(AuthService.authCallBackUri)}`, '_self');
   }
 
 
   public signIn(email: string, password: string): Observable<Observable<boolean>> {
-    return this.http.post('http://localhost:8081/rest/auth/login', {email, password}).pipe(map(
+    return this.http.post(environment.apiUrl + '/auth/login', {email, password}).pipe(map(
       resp => {
         return this.loginWithToken(resp['accessToken']);
       })
@@ -54,7 +56,7 @@ export class AuthService {
   }
 
   public getCurrUserInfo(): Observable<UserProfile> {
-    return this.http.get<UserProfile>('http://localhost:8888/cashmachine/api/user/me');
+    return this.http.get<UserProfile>('http://localhost:8081/rest/v1/user/me');
   }
 
   public logout() {
@@ -68,12 +70,12 @@ export class AuthService {
   }
 
  public  hasRole(role: string): boolean {
-    let user: UserProfile = JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY));
+    const user: UserProfile = JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY));
     return user.roles.includes(role);
   }
 
   public hasRoles(roles: string[]): boolean {
-    let results: boolean[] = roles.map(value => {
+    const results: boolean[] = roles.map(value => {
         return this.hasRole(value);
       }
     );
@@ -84,23 +86,11 @@ export class AuthService {
     }
   }
   public hasAnyRoles(roles: string[]): boolean {
-    let results: boolean[] = roles.map(value => {
+    const results: boolean[] = roles.map(value => {
         return this.hasRole(value);
       }
     );
-    if (results.find(value => value === true)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  get authCallBackUri(): string {
-    return this._authCallBackUri;
-  }
-
-  set authCallBackUri(value: string) {
-    this._authCallBackUri = value;
+    return results.find(value => value === true);
   }
 
   getUser(): UserProfile {
@@ -113,12 +103,12 @@ export class AuthService {
   }
 
   get redirectUri(): string {
-    return this._redirectUri;
+    return AuthService._redirectUri;
   }
 
   set redirectUri(value: string) {
     if (value.length > 0) {
-      this._redirectUri = value;
+      AuthService._redirectUri = value;
     }
   }
 }

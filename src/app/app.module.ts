@@ -10,19 +10,19 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {JwtInterceptor} from './interceptor/jwt.interceptor';
 import {TokenExpirationInterceptor} from './interceptor/token-expiration.interceptor';
-import {StubComponent} from './stub/stub.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {LoginModule} from './login/login.module';
+import {DashboardModule} from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StubComponent,
     PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     LoginModule,
+    DashboardModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
