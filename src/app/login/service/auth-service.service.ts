@@ -30,7 +30,7 @@ export class AuthService {
 
 
   public signIn(email: string, password: string): Observable<Observable<boolean>> {
-    return this.http.post(environment.apiUrl + '/auth/login', {email, password}).pipe(map(
+    return this.http.post(environment.apiUrl + '/v1/auth/login', {email, password}).pipe(map(
       resp => {
         return this.loginWithToken(resp['accessToken']);
       })
@@ -47,16 +47,11 @@ export class AuthService {
       }));
     }
 
-    // catchError(err => {
-    //   console.log(err);
-    //   of(false);
-    // })
-    // );
     return of(false);
   }
 
   public getCurrUserInfo(): Observable<UserProfile> {
-    return this.http.get<UserProfile>('http://localhost:8081/rest/v1/user/me');
+    return this.http.get<UserProfile>(environment.apiUrl + '/v1/user/me');
   }
 
   public logout() {
