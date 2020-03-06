@@ -1,18 +1,33 @@
-<!--<img class="" [src]="profileImageUrl"/>-->
-<mat-card class="profile-card">
-  <mat-card-header>
-    <img mat-card-avatar src="{{currentUser.pictureUrl}}" alt="Profile image"/>
-    <mat-card-title>{{currentUser.name}}</mat-card-title>
-    <mat-card-subtitle>{{currentUser.email}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="{{currentUser.pictureUrl}}" alt="Profile image">
-  <mat-card-content>
-    <p>
-      Your roles: {{currentUser.roles}}
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>EDIT</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
-</mat-card>
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px" class="profile-container">
+  <img class="profile-image" [src]="currentUser.pictureUrl" alt="Profile Image"/>
+  <span class="email">{{currentUser.email}}</span>
+  <span class="name">{{currentUser.name}}</span>
+</div>
+
+<div class="mat-toolbar" fxLayout="row wrap">
+  <button mat-button>
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons md-30" aria-hidden="false" aria-label="Add measurement">add</i>
+      <span>Measurement</span>
+    </div>
+  </button>
+  <button mat-button>
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons md-30" aria-hidden="false" aria-label="Show recommendations">healing</i>
+      <span>Recommendations</span>
+    </div>
+  </button>
+  <button mat-button>
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons md-30" aria-hidden="false" aria-label="Show notifications">notifications</i>
+      <span>Notifications</span>
+    </div>
+  </button>
+  <button mat-button>
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons md-30" aria-hidden="false" aria-label="Settings">settings</i>
+      <span>Settings</span>
+    </div>
+  </button>
+</div>
+

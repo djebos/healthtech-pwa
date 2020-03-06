@@ -31,7 +31,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
     MatButtonModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     MatProgressBarModule
-  ],
+],
   providers : [{
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,
