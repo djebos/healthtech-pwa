@@ -1,0 +1,90 @@
+<div fxLayout="row" class="measurement-types-container">
+  <div class="measurement-types-buttons-container" fxLayout="row wrap" fxLayoutAlign="space-between space-between">
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="pulse"></mat-icon>
+        <span>Pulse</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="pressure"></mat-icon>
+        <span>Pressure</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="glucose"></mat-icon>
+        <span>Glucose</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="weight"></mat-icon>
+        <span>Weight</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="temperature"></mat-icon>
+        <span>Temp</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <i class="material-icons" aria-hidden="false" aria-label="All">add</i>
+        <span>All</span>
+      </div>
+    </button>
+  </div>
+</div>
+
+<mat-list fxLayout="column" fxLayoutAlign="start center" class="measurement-history" (scroll)="onScroll($event)">
+  <h3 mat-subheader>History</h3>
+  <mat-list-item *ngFor="let measure of measurements">
+
+    <mat-icon *ngIf="measure.type == 'GLUCOSE'" svgIcon="glucose" mat-list-icon class=""></mat-icon>
+    <mat-icon *ngIf="measure.type == 'TEMPERATURE'" svgIcon="temperature" mat-list-icon class=""></mat-icon>
+    <mat-icon *ngIf="measure.type == 'PRESSURE'" svgIcon="pressure" mat-list-icon class=""></mat-icon>
+    <mat-icon *ngIf="measure.type == 'WEIGHT'" svgIcon="weight" mat-list-icon class=""></mat-icon>
+    <mat-icon *ngIf="measure.type == 'PULSE'" svgIcon="pulse" mat-list-icon class=""></mat-icon>
+    <div mat-line fxLayout="row" fxLayoutAlign="space-between" class="measurement-history-entry">
+      <span class="measurement-history-entry-value">{{measure.value}}</span>
+      <span class="measurement-history-entry-unit">{{measure.unit}}</span>
+      <span class="measurement-history-entry-date">{{measure.date | date}}</span>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <div *ngIf="measurements.length < 1" class="no-measurements-found" fxLayout="column" fxLayoutAlign="center center">
+    <p class="no-measurements-found-text">No measurements found</p>
+    <a class="add-measurement-link" [routerLink]="['/add-measurement']">Add new one</a>
+  </div>
+  <div *ngIf="isLoading" class="measurement-history-entries-loader">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <!--  <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
+  <!--  <div>Icons made by <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>-->
+  <!--  <div>Icons made by <a href="https://www.flaticon.com/authors/nikita-golubev" title="Nikita Golubev">Nikita Golubev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></mat-list>-->
+</mat-list>
+<div class="measurement-toolbar" fxLayout="row" fxLayoutAlign="space-between">
+  <button mat-button>
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Help">help</i>
+    </div>
+  </button>
+  <button mat-button>
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Show chart">show_chart</i>
+    </div>
+  </button>
+  <button mat-button>
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Add temperature">account_circle</i>
+    </div>
+  </button>
+  <button mat-button [routerLink]="['/add-measurement']">
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Add measurement">add</i>
+    </div>
+  </button>
+</div>

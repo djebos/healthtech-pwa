@@ -1,0 +1,52 @@
+<div fxLayout="row" fxLayoutAlign="center">
+  <h2>New measurement</h2>
+</div>
+<div class="measurement-types-container" fxLayout="row" fxLayoutAlign="space-between">
+  <div #measurementType data-measurement-type="pulse" class="measurement-type measurement-type-selected"
+       (click)="onMeasurementTypeSelect($event, 'pulse')">
+    <mat-icon svgIcon="pulse" class="measurement-type-icon">
+      <i class="material-icons measurement-type-icon-enabled">check_circle</i>
+    </mat-icon>
+  </div>
+  <div #measurementType data-measurement-type="pressure" class="measurement-type measurement-type-not-selected"
+       (click)="onMeasurementTypeSelect($event, 'pressure')">
+    <mat-icon svgIcon="pressure" class="measurement-type-icon">
+      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+    </mat-icon>
+  </div>
+  <div #measurementType data-measurement-type="glucose" class="measurement-type measurement-type-not-selected"
+       (click)="onMeasurementTypeSelect($event, 'glucose')">
+    <mat-icon svgIcon="glucose" class="measurement-type-icon">
+      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+    </mat-icon>
+  </div>
+  <div #measurementType data-measurement-type="weight" class="measurement-type measurement-type-not-selected"
+       (click)="onMeasurementTypeSelect($event, 'weight')">
+    <mat-icon svgIcon="weight" class="measurement-type-icon">
+      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+    </mat-icon>
+  </div>
+  <div #measurementType data-measurement-type="temperature" class="measurement-type measurement-type-not-selected"
+       (click)="onMeasurementTypeSelect($event, 'temperature')">
+    <mat-icon svgIcon="temperature" class="measurement-type-icon">
+      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+    </mat-icon>
+  </div>
+</div>
+
+<form [formGroup]="measurementForm" class="measurement-form" fxLayout="column" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Value</mat-label>
+    <input matInput formControlName="value" placeholder="Type value here" type="text"/>
+    <mat-hint>Hint</mat-hint>
+    <span matSuffix>bpm</span>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Value</mat-label>
+    <input matInput formControlName="time" placeholder="Select time here" type="datetime-local"/>
+    <mat-hint>Hint</mat-hint>
+  </mat-form-field>
+</form>
+<div class="create-measurement-btn-container">
+  <button mat-button color="primary" (click)="onSubmit()">Create</button>
+</div>

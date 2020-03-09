@@ -5,25 +5,25 @@
 </div>
 
 <div class="mat-toolbar" fxLayout="row wrap">
-  <button mat-button>
+  <button mat-button [routerLink]="['/measurement-list']">
     <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
       <i class="material-icons md-30" aria-hidden="false" aria-label="Add measurement">add</i>
       <span>Measurement</span>
     </div>
   </button>
-  <button mat-button>
+  <button mat-button [routerLink]="['/']">
     <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
       <i class="material-icons md-30" aria-hidden="false" aria-label="Show recommendations">healing</i>
       <span>Recommendations</span>
     </div>
   </button>
-  <button mat-button>
+  <button mat-button [routerLink]="['/']">
     <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
       <i class="material-icons md-30" aria-hidden="false" aria-label="Show notifications">notifications</i>
       <span>Notifications</span>
     </div>
   </button>
-  <button mat-button>
+  <button mat-button [routerLink]="['/']">
     <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
       <i class="material-icons md-30" aria-hidden="false" aria-label="Settings">settings</i>
       <span>Settings</span>
