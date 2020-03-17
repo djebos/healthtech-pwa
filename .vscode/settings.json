@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/e7dc935a-7e69-4b70-90e9-4a4eb71d7ca6/resourceGroups/app/providers/Microsoft.Web/sites/healthtech-pwa",
+    "appService.deploySubpath": "dist\\pwa"
+}
