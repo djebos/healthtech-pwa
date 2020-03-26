@@ -8,7 +8,7 @@ import {MeasurementService} from './service/MeasurementService';
   styleUrls: ['./measurement-list.component.css']
 })
 export class MeasurementListComponent implements OnInit {
-  pageToLoad = 0;
+  loadedPage = 0;
   measurements: MeasurementEntry[] = [];
   isLoading = false;
 
@@ -17,13 +17,13 @@ export class MeasurementListComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.measurementService.getMeasurementEntries(this.pageToLoad)
+    this.measurementService.getMeasurementEntries(this.loadedPage)
       .subscribe(this.pushNewMeasurements(), this.cancelLoading());
   }
 
   private cancelLoading() {
     return error => {
-      this.pageToLoad--;
+      this.loadedPage--;
       this.isLoading = false;
     };
   }
@@ -32,7 +32,6 @@ export class MeasurementListComponent implements OnInit {
     return next => {
       console.log(...next)
       this.measurements.push(...next);
-      this.pageToLoad++;
       this.isLoading = false;
     };
   }
@@ -47,8 +46,9 @@ export class MeasurementListComponent implements OnInit {
     const limit = tracker.scrollHeight - tracker.clientHeight;
     console.log(event.target.scrollTop, limit);
     if (event.target.scrollTop === limit) {
+      this.loadedPage++;
       this.isLoading = true;
-      this.measurementService.getMeasurementEntries(this.pageToLoad)
+      this.measurementService.getMeasurementEntries(this.loadedPage)
         .subscribe(this.pushNewMeasurements(), this.cancelLoading());
     }
   }
