@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  enableServiceWorkers: false,
   name: 'local',
   apiUrl: 'http://localhost:8081/rest',
   hostUrl: 'http://localhost:8080',

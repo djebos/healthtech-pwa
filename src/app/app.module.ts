@@ -29,7 +29,7 @@ import {DashboardModule} from './dashboard/dashboard.module';
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.enableServiceWorkers}),
     MatProgressBarModule
 ],
   providers : [{
