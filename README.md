@@ -4,7 +4,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Install http-server to be able to use service workers. `npm install http-server -g`. Run it from project root using `npx http-server -p 8080 -c-1 dist/pwa`.
+Install http-server to be able to use service workers locally. `npm install http-server -g`. Run it from project root using `npx http-server -p 8080 -c-1 dist/pwa`.
+
+Or run plain old `ng serve` if you develop/test not pwa-related functionality
 
 ## Code scaffolding
 
@@ -12,7 +14,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build --prod` to build the project. The build artifacts will be stored in the `dist/` directory. After next page reload service worker downloads app update and install it in browser.
+Run `ng build --prod` to build the project with prod config.    
+Run `ng build --configuration dev` to build for dev env.  
+The build artifacts will be stored in the `dist/` directory. After next page reload service worker downloads app update and install it in browser.
+Docker is also supported.  
+Look at Dockerfile for better understanding
 
 ## Running unit tests
 
