@@ -3,5 +3,5 @@ export const environment = {
   enableServiceWorkers: true,
   name: 'dev',
   apiUrl: 'https://healthtech.azurewebsites.net/rest',
-  hostUrl: 'https://djebos.z6.web.core.windows.net',
+  hostUrl: 'https://healthtech-pwa-dev.westeurope.azurecontainer.io',
 };
