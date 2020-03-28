@@ -8,6 +8,6 @@ RUN npm run build-dev
 ### STAGE 2: Run ###
 FROM nginx:1.17.1-alpine
 COPY nginx-dev.conf /etc/nginx/nginx.conf
-COPY key.pem /etc/nginx/
-COPY cert.pem /etc/nginx/
+COPY private.key /etc/nginx/
+COPY certificate.crt /etc/nginx/
 COPY --from=build /usr/src/app/dist/pwa /usr/share/nginx/html
