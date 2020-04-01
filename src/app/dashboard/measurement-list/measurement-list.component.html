@@ -40,21 +40,23 @@
 </div>
 
 <mat-list fxLayout="column" fxLayoutAlign="start center" class="measurement-history" (scroll)="onScroll($event)">
-  <h3 mat-subheader>History</h3>
-  <mat-list-item *ngFor="let measure of measurements">
-
-    <mat-icon *ngIf="measure.type == 'GLUCOSE'" svgIcon="glucose" mat-list-icon class=""></mat-icon>
-    <mat-icon *ngIf="measure.type == 'TEMPERATURE'" svgIcon="temperature" mat-list-icon class=""></mat-icon>
-    <mat-icon *ngIf="measure.type == 'PRESSURE'" svgIcon="pressure" mat-list-icon class=""></mat-icon>
-    <mat-icon *ngIf="measure.type == 'WEIGHT'" svgIcon="weight" mat-list-icon class=""></mat-icon>
-    <mat-icon *ngIf="measure.type == 'PULSE'" svgIcon="pulse" mat-list-icon class=""></mat-icon>
-    <div mat-line fxLayout="row" fxLayoutAlign="space-between" class="measurement-history-entry">
-      <span class="measurement-history-entry-value">{{measure.value}}</span>
-      <span class="measurement-history-entry-unit">{{measure.unit}}</span>
-      <span class="measurement-history-entry-date">{{measure.date | date}}</span>
-    </div>
-  </mat-list-item>
-  <mat-divider></mat-divider>
+  <h3 class="measurements-header" mat-subheader>History</h3>
+  <div *ngFor="let measurementsByDate of measurements" class="measurements-by-date-container">
+    <h4 mat-subheader>{{measurementsByDate.date | date}}</h4>
+    <mat-list-item *ngFor="let measurement of measurementsByDate.measurements">
+      <div mat-line fxLayout="row" fxLayoutAlign="space-between center" class="measurement-history-entry">
+        <mat-icon *ngIf="measurement.type == 'glucose'" svgIcon="glucose" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="measurement.type == 'temperature'" svgIcon="temperature" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="measurement.type == 'pressure'" svgIcon="pressure" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="measurement.type == 'weight'" svgIcon="weight" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="measurement.type == 'pulse'" svgIcon="pulse" mat-list-icon class=""></mat-icon>
+        <span class="measurement-history-entry-value">{{measurement.value}}</span>
+        <span class="measurement-history-entry-unit">{{measurement.unit}}</span>
+        <span class="measurement-history-entry-date">{{measurement.created | date:'shortTime'}}</span>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </div>
   <div *ngIf="measurements.length < 1" class="no-measurements-found" fxLayout="column" fxLayoutAlign="center center">
     <p class="no-measurements-found-text">No measurements found</p>
     <a class="add-measurement-link" [routerLink]="['/add-measurement']">Add new one</a>

@@ -1,5 +1,5 @@
 export enum MeasurementType {
-  PULSE = 'PULSE',
+  PULSE = 'pulse',
   PRESSURE = 'pressure',
   TEMPERATURE = 'temp',
   WEIGHT = 'weight',

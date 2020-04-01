@@ -1,15 +1,16 @@
 import {MeasurementType} from './MeasurementType';
+import {MeasurementUnit} from './MeasurementUnit';
 
 export class MeasurementEntry {
   private _type: MeasurementType;
-  private _date: Date;
+  private _created: Date;
   private _value: string;
-  private _unit: string;
+  private _unit: MeasurementUnit;
 
 
-  constructor(type: MeasurementType, date: Date, value: string, unit: string) {
+  constructor(type: MeasurementType, date: Date, value: string, unit: MeasurementUnit) {
     this._type = type;
-    this._date = date;
+    this._created = date;
     this._value = value;
     this._unit = unit;
   }
@@ -22,12 +23,12 @@ export class MeasurementEntry {
     this._type = value;
   }
 
-  get date(): Date {
-    return this._date;
+  get created(): Date {
+    return this._created;
   }
 
-  set date(value: Date) {
-    this._date = value;
+  set created(value: Date) {
+    this._created = value;
   }
 
   get value(): string {
@@ -39,11 +40,11 @@ export class MeasurementEntry {
   }
 
 
-  get unit(): string {
+  get unit(): MeasurementUnit {
     return this._unit;
   }
 
-  set unit(value: string) {
+  set unit(value: MeasurementUnit) {
     this._unit = value;
   }
 }

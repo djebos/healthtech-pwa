@@ -1,49 +1,47 @@
-import {Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {MeasurementService} from '../measurement-list/service/MeasurementService';
+import {Component} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {MeasurementService} from '../service/MeasurementService';
+import {CreateMeasurementRequest} from '../data/CreateMeasurementRequest';
+import {MeasurementType} from '../data/MeasurementType';
+import {EnumUtils} from '../data/EnumUtils';
 
 @Component({
   selector: 'app-add-measurement',
   templateUrl: './add-measurement.component.html',
   styleUrls: ['./add-measurement.component.css']
 })
-export class AddMeasurementComponent implements OnInit {
+export class AddMeasurementComponent {
   measurementForm = new FormGroup({
-    time: new FormControl(new Date()),
-    value: new FormControl(''),
-  });
-  measurementTypeSelected = 'pulse';
+    value: new FormControl('', {validators: [(control: AbstractControl): { [key: string]: any } | null => this.patternByTypeValidator(control)]}),
+  } );
 
-  @ViewChildren('measurementType') measurementTypes: QueryList<ElementRef>;
+  measurementTypeSelected = MeasurementType.PULSE;
 
   constructor(private measurementService: MeasurementService) {
   }
 
-  ngOnInit() {
-  }
-
-  onMeasurementTypeSelect(event: MouseEvent, measurementType: string) {
-    this.measurementTypeSelected = measurementType;
-    const selectedMesurementType = this.measurementTypes.toArray()
-      .find(value => value.nativeElement.getAttribute('data-measurement-type') === this.measurementTypeSelected);
-    const notSelectedMeasurementTypes: ElementRef[] = this.measurementTypes.toArray()
-      .filter(value => value.nativeElement.getAttribute('data-measurement-type') !== this.measurementTypeSelected);
-    selectedMesurementType.nativeElement.classList.add('measurement-type-selected');
-    selectedMesurementType.nativeElement.classList.remove('measurement-type-not-selected');
-    selectedMesurementType.nativeElement.getElementsByClassName('material-icons').item(0).classList.add('measurement-type-icon-enabled');
-    selectedMesurementType.nativeElement.getElementsByClassName('material-icons').item(0).classList.remove('measurement-type-icon-disabled');
-    notSelectedMeasurementTypes.forEach(value => {
-      value.nativeElement.classList.add('measurement-type-not-selected');
-      value.nativeElement.classList.remove('measurement-type-selected');
-      value.nativeElement.getElementsByClassName('material-icons').item(0).classList.remove('measurement-type-icon-enabled');
-      value.nativeElement.getElementsByClassName('material-icons').item(0).classList.add('measurement-type-icon-disabled');
-    });
+  onMeasurementTypeSelect(measurementType: string) {
+    this.measurementTypeSelected = EnumUtils.toMeasurementType(measurementType);
   }
 
   public onSubmit() {
-    this.measurementService.createMeasurement({
-      type: this.measurementTypeSelected.toUpperCase(),
-      value: this.measurementForm.get('value').value
-    }).subscribe(next => console.log(next));
+    const measurementToCreate = new CreateMeasurementRequest(this.measurementForm.get('value').value,
+      this.getUnitForMeasurementType(this.measurementTypeSelected), this.measurementTypeSelected);
+    this.measurementService.createMeasurement(measurementToCreate).subscribe(next => console.log(next));
+  }
+
+  public getUnitForMeasurementType(type: string) {
+    return this.measurementService.getUnitForType(this.measurementTypeSelected);
+  }
+
+  public patternByTypeValidator(control: AbstractControl): ValidationErrors | null {
+    let val: string = control.value;
+    if (this.measurementTypeSelected === MeasurementType.PULSE) {
+      if (!/^\d{2,3}$/.test(val)) {
+        console.log('invalid pulse');
+        return {pattern: 'pattern'};
+      }
+    }
+    return null;
   }
 }

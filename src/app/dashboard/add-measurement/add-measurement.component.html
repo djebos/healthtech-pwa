@@ -2,49 +2,58 @@
   <h2>New measurement</h2>
 </div>
 <div class="measurement-types-container" fxLayout="row" fxLayoutAlign="space-between">
-  <div #measurementType data-measurement-type="pulse" class="measurement-type measurement-type-selected"
-       (click)="onMeasurementTypeSelect($event, 'pulse')">
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'pulse'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'pulse')">
     <mat-icon svgIcon="pulse" class="measurement-type-icon">
-      <i class="material-icons measurement-type-icon-enabled">check_circle</i>
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'pulse'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
     </mat-icon>
   </div>
-  <div #measurementType data-measurement-type="pressure" class="measurement-type measurement-type-not-selected"
-       (click)="onMeasurementTypeSelect($event, 'pressure')">
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'pressure'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'pressure')">
     <mat-icon svgIcon="pressure" class="measurement-type-icon">
-      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'pressure'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
     </mat-icon>
   </div>
-  <div #measurementType data-measurement-type="glucose" class="measurement-type measurement-type-not-selected"
-       (click)="onMeasurementTypeSelect($event, 'glucose')">
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'glucose'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'glucose')">
     <mat-icon svgIcon="glucose" class="measurement-type-icon">
-      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'glucose'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
     </mat-icon>
   </div>
-  <div #measurementType data-measurement-type="weight" class="measurement-type measurement-type-not-selected"
-       (click)="onMeasurementTypeSelect($event, 'weight')">
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'weight'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'weight')">
     <mat-icon svgIcon="weight" class="measurement-type-icon">
-      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'weight'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
     </mat-icon>
   </div>
-  <div #measurementType data-measurement-type="temperature" class="measurement-type measurement-type-not-selected"
-       (click)="onMeasurementTypeSelect($event, 'temperature')">
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'temp'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect('temp')">
     <mat-icon svgIcon="temperature" class="measurement-type-icon">
-      <i class="material-icons measurement-type-icon-disabled">check_circle</i>
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'temp'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
     </mat-icon>
   </div>
 </div>
 
-<form [formGroup]="measurementForm" class="measurement-form" fxLayout="column" (ngSubmit)="onSubmit()">
+<form [formGroup]="measurementForm" class="measurement-form" fxLayout="column"
+      (keydown.enter)="$event.preventDefault()">
   <mat-form-field>
     <mat-label>Value</mat-label>
     <input matInput formControlName="value" placeholder="Type value here" type="text"/>
-    <mat-hint>Hint</mat-hint>
-    <span matSuffix>bpm</span>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Value</mat-label>
-    <input matInput formControlName="time" placeholder="Select time here" type="datetime-local"/>
-    <mat-hint>Hint</mat-hint>
+    <mat-hint>change-me</mat-hint>
+    <span matSuffix>{{getUnitForMeasurementType(measurementTypeSelected)}}</span>
+    <mat-error *ngIf="measurementForm.get('value').hasError('pattern')">
+      Please enter a valid value
+    </mat-error>
   </mat-form-field>
 </form>
 <div class="create-measurement-btn-container">

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MeasurementService} from '../measurement-list/service/MeasurementService';
+import {MeasurementService} from '../service/MeasurementService';
 
 @Component({
   selector: 'app-add-pulse',
