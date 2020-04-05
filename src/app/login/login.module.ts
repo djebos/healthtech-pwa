@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 
 import {LoginRoutingModule} from './login-routing.module';
 import {LoginComponent} from './login/login.component';
-import {AuthService} from './service/auth-service.service';
+import {AuthService} from './service/auth.service';
 import {
   MatButtonModule,
   MatDividerModule,

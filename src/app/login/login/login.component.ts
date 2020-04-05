@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../service/auth-service.service';
+import {AuthService} from '../service/auth.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatIconRegistry} from '@angular/material';
 import {FormControl, FormGroup} from '@angular/forms';

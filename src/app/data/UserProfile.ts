@@ -1,14 +1,39 @@
+import {Role} from './Role';
+
 export class UserProfile {
-  public email: string;
-  public name: string;
-  public pictureUrl: string;
-  public roles: string[];
+  constructor(private _email: string, private _name: string, private _picture: string, private _roles: Role[]) {
+  }
 
 
-  constructor(email: string, name: string, picture: string, roles: string[]) {
-    this.email = email;
-    this.name = name;
-    this.pictureUrl = picture;
-    this.roles = roles;
+  get email(): string {
+    return this._email;
+  }
+
+  set email(value: string) {
+    this._email = value;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value;
+  }
+
+  get picture(): string {
+    return this._picture;
+  }
+
+  set picture(value: string) {
+    this._picture = value;
+  }
+
+  get roles(): Role[] {
+    return this._roles;
+  }
+
+  set roles(value: Role[]) {
+    this._roles = value;
   }
 }

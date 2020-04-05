@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserProfile} from '../../data/UserProfile';
-import {AuthService} from './auth-service.service';
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +17,14 @@ export class RedirectService {
   }
 
   public redirectUserToHomePage(user: UserProfile, desiredRoute?: string) {
-    if (desiredRoute) {
-      if (this.validatePathForUser(desiredRoute, user)) {
-        this.router.navigate([desiredRoute]);
-      } else {
-        this.findHomePageForUser(user);
-      }
-    } else {
-      this.findHomePageForUser(user);
+    if (desiredRoute && this.validatePathForUser(desiredRoute, user)) {
+      this.router.navigate([desiredRoute]);
     }
+    this.findHomePageForUser(user);
   }
 
   private findHomePageForUser(user: UserProfile) {
-    const homePage: string = this.homePages.get(user.roles[0]);
+    const homePage: string = this.homePages.get(user.roles[0].name);
     if (homePage) {
       this.router.navigate([homePage]);
     } else {
@@ -42,7 +37,7 @@ export class RedirectService {
     let result = false;
     const allowedPaths: string[] = [];
     this.homePages.forEach(((value, key) => {
-      if (user.roles.includes(key)) {
+      if (user.roles.find(role => role.name === key)) {
         allowedPaths.push(value);
       }
     }));

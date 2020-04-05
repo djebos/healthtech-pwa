@@ -64,28 +64,9 @@ export class AuthService {
     return this.getToken() != null && this.getUser() !== undefined;
   }
 
- public  hasRole(role: string): boolean {
+ public hasRole(role: string): boolean {
     const user: UserProfile = JSON.parse(localStorage.getItem(AuthService.USER_STORAGE_KEY));
-    return user.roles.includes(role);
-  }
-
-  public hasRoles(roles: string[]): boolean {
-    const results: boolean[] = roles.map(value => {
-        return this.hasRole(value);
-      }
-    );
-    if (results.every(value => value === true)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  public hasAnyRoles(roles: string[]): boolean {
-    const results: boolean[] = roles.map(value => {
-        return this.hasRole(value);
-      }
-    );
-    return results.find(value => value === true);
+    return user.roles.filter(userRole => userRole.name === role).length > 1;
   }
 
   getUser(): UserProfile {
