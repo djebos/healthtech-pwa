@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private redirectService: RedirectService, public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'google-icon',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/google-icon.svg'));
+      sanitizer.bypassSecurityTrustResourceUrl('assets/google-icon1.svg'));
   }
 
   public isLoggedIn(): boolean {

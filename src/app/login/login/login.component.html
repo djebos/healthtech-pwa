@@ -1,35 +1,43 @@
-<div class="container-fluid align-content-center justify-content-center">
-  <div class="row justify-content-center">
-    <h2>Welcome to HealthTech!</h2>
-  </div>
-  <div class="row justify-content-center">
-    <h5>Please login</h5>
-  </div>
-</div>
-<div class="container col-lg-2 col-sm-5 col-xs-12">
-  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="regularLogin()">
-    <mat-form-field class="login-full-width">
-      <label>
-        <input formControlName="email" matInput placeholder="Login">
-      </label>
-    </mat-form-field>
-
-    <mat-form-field class="login-full-width">
-      <label>
-        <input formControlName="password" matInput type="password" placeholder="Password"/>
-      </label>
-    </mat-form-field>
-    <div class="row">
-      <button mat-raised-button color="primary">Log in</button>
+<div class="login-component-container" fxLayout="column" fxLayoutAlign="start center">
+  <div class="" fxLayout="column" fxLayoutAlign=" center">
+    <div class="row justify-content-center">
+      <h2>Welcome to HealthTech!</h2>
     </div>
-  </form>
-  <div class="row justify-content-center login-separator"><span>OR</span></div>
-  <div class="divider">
-    <mat-divider></mat-divider>
+    <div class="row justify-content-center">
+      <h5>Please login</h5>
+    </div>
   </div>
-  <div class="row justify-content-center google-login-wrapper">
-    <button mat-icon-button aria-label="Log in with google" (click)="authService.signInWithOAuth('google')">
-      <mat-icon svgIcon="google-icon"></mat-icon>
-    </button>
+  <div class="login-container" fxLayout="column" fxLayoutAlign=" center">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="regularLogin()">
+      <mat-form-field class="login-full-width">
+        <label>
+          <input formControlName="email" matInput placeholder="Login">
+        </label>
+      </mat-form-field>
+
+      <mat-form-field class="login-full-width">
+        <label>
+          <input formControlName="password" matInput type="password" placeholder="Password"/>
+        </label>
+      </mat-form-field>
+      <div class="">
+        <button mat-raised-button color="primary">Log in</button>
+      </div>
+    </form>
+    <div class="login-divider" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="login-divider-line"></div>
+      <span>OR</span>
+      <div class="login-divider-line"></div>
+    </div>
+    <div class="oauth-login-methods-container" fxLayout="row" fxLayoutAlign="center">
+      <button mat-button aria-label="Log in with google" (click)="authService.signInWithOAuth('google')">
+        <mat-icon class="google-icon" svgIcon="google-icon"></mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="registration-link-container" fxLayout="column" fxLayoutAlign=" center" fxFlexAlign="end">
+    <p (click)="router.navigate(['/sign-up'])">
+      Don't have an account? <span class="sign-up-link">Click here to sign up</span>
+    </p>
   </div>
 </div>

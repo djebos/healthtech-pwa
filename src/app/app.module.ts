@@ -13,25 +13,27 @@ import {TokenExpirationInterceptor} from './interceptor/token-expiration.interce
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {LoginModule} from './login/login.module';
 import {DashboardModule} from './dashboard/dashboard.module';
+import {FlexModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent
   ],
-  imports: [
-    BrowserModule,
-    LoginModule,
-    DashboardModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.enableServiceWorkers}),
-    MatProgressBarModule
-],
+    imports: [
+        BrowserModule,
+        LoginModule,
+        DashboardModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatButtonModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.enableServiceWorkers}),
+        MatProgressBarModule,
+        FlexModule
+    ],
   providers : [{
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,

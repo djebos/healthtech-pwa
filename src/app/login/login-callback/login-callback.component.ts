@@ -9,15 +9,19 @@ import {RedirectService} from '../service/redirect.service';
   styleUrls: ['./login-callback.component.css']
 })
 export class LoginCallbackComponent implements OnInit {
+  loginInProgress = false;
 
-  constructor(private redirectService: RedirectService, private authService: AuthService, private route: ActivatedRoute, private router: Router) {
+  constructor(private redirectService: RedirectService, private authService: AuthService, private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
+    this.loginInProgress = true;
     if (this.route.snapshot.queryParamMap.get('token')) {
-      this.authService.loginWithToken(this.route.snapshot.queryParamMap.get('token')).subscribe((result: boolean) => {
-        if (result) {
+      this.authService.loginWithToken(this.route.snapshot.queryParamMap.get('token')).subscribe((authSuccessful: boolean) => {
+        if (authSuccessful) {
           this.redirectService.redirectUserToHomePage(this.authService.getUser(), this.authService.redirectUri);
+          this.loginInProgress = false;
         } else {
           this.logoutAndNavigateToLogin();
         }
@@ -29,6 +33,6 @@ export class LoginCallbackComponent implements OnInit {
 
   private logoutAndNavigateToLogin() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).finally(() => this.loginInProgress = false);
   }
 }
