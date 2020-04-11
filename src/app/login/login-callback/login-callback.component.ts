@@ -20,7 +20,7 @@ export class LoginCallbackComponent implements OnInit {
     if (this.route.snapshot.queryParamMap.get('token')) {
       this.authService.loginWithToken(this.route.snapshot.queryParamMap.get('token')).subscribe((authSuccessful: boolean) => {
         if (authSuccessful) {
-          this.redirectService.redirectUserToHomePage(this.authService.getUser(), this.authService.redirectUri);
+          this.redirectService.redirectUserToHomePage(this.authService.getUserFromStorage(), this.authService.redirectUri);
           this.loginInProgress = false;
         } else {
           this.logoutAndNavigateToLogin();

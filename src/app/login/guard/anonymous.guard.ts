@@ -13,8 +13,8 @@ export class AnonymousGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log('anonymous guard user signed in =' + this.authService.isUserSignedIn());
     if (this.authService.isUserSignedIn()) {
-      console.log('anonymous user detected, current user = ' + this.authService.getUser());
-      this.homePageService.redirectUserToHomePage(this.authService.getUser());
+      console.log('anonymous user detected, current user = ' + this.authService.getUserFromStorage());
+      this.homePageService.redirectUserToHomePage(this.authService.getUserFromStorage());
       return false;
     } else {
       return true;

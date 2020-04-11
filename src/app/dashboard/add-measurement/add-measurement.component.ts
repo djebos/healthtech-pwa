@@ -26,16 +26,16 @@ export class AddMeasurementComponent {
 
   public onSubmit() {
     const measurementToCreate = new CreateMeasurementRequest(this.measurementForm.get('value').value,
-      this.getUnitForMeasurementType(this.measurementTypeSelected), this.measurementTypeSelected);
+      this.getUnitForSelectedMeasurementType(), this.measurementTypeSelected);
     this.measurementService.createMeasurement(measurementToCreate).subscribe(next => console.log(next));
   }
 
-  public getUnitForMeasurementType(type: string) {
+  public getUnitForSelectedMeasurementType() {
     return this.measurementService.getUnitForType(this.measurementTypeSelected);
   }
 
   public patternByTypeValidator(control: AbstractControl): ValidationErrors | null {
-    let val: string = control.value;
+    const val: string = control.value;
     if (this.measurementTypeSelected === MeasurementType.PULSE) {
       if (!/^\d{2,3}$/.test(val)) {
         console.log('invalid pulse');

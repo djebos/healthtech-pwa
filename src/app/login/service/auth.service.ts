@@ -29,12 +29,16 @@ export class AuthService {
   }
 
 
-  public signIn(email: string, password: string): Observable<Observable<boolean>> {
+  public signInWithCredentials(email: string, password: string): Observable<Observable<boolean>> {
     return this.http.post(environment.apiUrl + '/v1/auth/login', {email, password}).pipe(map(
       resp => {
         return this.loginWithToken(resp['accessToken']);
       })
     );
+  }
+
+  public signUpWithCredentials(email: string, password: string): Observable<UserProfile> {
+    return this.http.post<UserProfile>(environment.apiUrl + '/v1/auth/signup', {email, password});
   }
 
   public loginWithToken(token): Observable<boolean> {
@@ -55,13 +59,13 @@ export class AuthService {
   }
 
   public logout() {
-    console.log('Logging out user ' + this.getUser().email);
+    console.log('Logging out user ' + this.getUserFromStorage().email);
     localStorage.removeItem(AuthService.TOKEN_STORAGE_KEY);
     localStorage.removeItem(AuthService.USER_STORAGE_KEY);
   }
 
   public isUserSignedIn(): boolean {
-    return this.getToken() != null && this.getUser() !== undefined;
+    return this.getToken() != null && this.getUserFromStorage() !== undefined;
   }
 
  public hasRole(role: string): boolean {
@@ -69,7 +73,7 @@ export class AuthService {
     return user.roles.filter(userRole => userRole.name === role).length > 1;
   }
 
-  getUser(): UserProfile {
+  getUserFromStorage(): UserProfile {
     const user = localStorage.getItem(AuthService.USER_STORAGE_KEY);
     if (user) {
       return JSON.parse(user);

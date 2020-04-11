@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.currentUser = this.authService.getUser();
+    this.currentUser = this.authService.getUserFromStorage();
   }
 
 }

@@ -1,0 +1,73 @@
+.sign-up-component-container {
+  height: 90%;
+  padding-top: 20px;
+}
+
+.sign-up-container {
+  width: 100%;
+}
+
+.sign-up-header {
+  font-size: 20px;
+}
+
+.sign-up-form {
+  width: 100%;
+  max-width: 300px;
+}
+
+.sign-up-full-width {
+  width: 100%;
+}
+
+.register-button-container {
+  width: 80px;
+}
+
+.register-button {
+  width: 100%;
+}
+
+.sign-up-divider {
+  margin-top: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.sign-up-divider-line {
+  width: 40%;
+  max-width: 140px;
+  border-top: 1px solid grey;
+}
+
+.oauth-sign-up-methods-container {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.google-icon {
+  width: 54px;
+  height: 54px;
+}
+
+.login-link-container {
+  margin-top: 100px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.sign-in-link {
+  text-decoration: underline;
+}
+
+.sing-up-in-progress {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.5);
+  top: 0;
+  left: 0;
+}

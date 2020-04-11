@@ -50,7 +50,7 @@
     <mat-label>Value</mat-label>
     <input matInput formControlName="value" placeholder="Type value here" type="text"/>
     <mat-hint>change-me</mat-hint>
-    <span matSuffix>{{getUnitForMeasurementType(measurementTypeSelected)}}</span>
+    <span matSuffix>{{getUnitForSelectedMeasurementType()}}</span>
     <mat-error *ngIf="measurementForm.get('value').hasError('pattern')">
       Please enter a valid value
     </mat-error>

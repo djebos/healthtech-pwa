@@ -1,3 +1,58 @@
-<p>
-  sig-up works!
-</p>
+<div class="sign-up-component-container" fxLayout="column" fxLayoutAlign="start center">
+  <div class="" fxLayout="column" fxLayoutAlign=" center">
+    <h5 class="sign-up-header">Please sign-up</h5>
+  </div>
+  <div class="sign-up-container" fxLayout="column" fxLayoutAlign=" center">
+    <form class="sign-up-form" [formGroup]="signUpForm" fxLayout="column" fxLayoutGap="20px">
+      <mat-form-field class="sign-up-full-width">
+        <input [maxLength]="16" formControlName="name" matInput placeholder="Your name">
+        <mat-error *ngIf="signUpForm.get('name').hasError('minlength')">
+          Name should have at least 3 symbols
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="sign-up-full-width">
+        <input [maxLength]="30" formControlName="email" matInput placeholder="Email">
+        <mat-error *ngIf="signUpForm.get('email').hasError('email')">
+          Please enter a valid email
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="sign-up-full-width">
+        <input [maxLength]="16" formControlName="password" matInput type="password" placeholder="Password"/>
+        <mat-error *ngIf="signUpForm.get('password').hasError('pattern')">
+          Password should contain at least 1 uppercase symbol, 1 lowercase symbol, 1 special symbol and have length at least 8 symbols
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="sign-up-full-width"
+                      *ngIf="signUpForm.get('password').touched || signUpForm.get('password').dirty">
+        <input [maxLength]="16" formControlName="repeatPassword" matInput type="password" placeholder="Repeat password"/>
+        <mat-error *ngIf="signUpForm.get('repeatPassword').hasError('passwordNotMatch')">
+         Passwords don't match
+        </mat-error>
+      </mat-form-field>
+      <div class="register-button-container" fxFlexAlign="end">
+        <button class="register-button" mat-raised-button color="primary" [disabled]="signUpForm.invalid" (click)="registerWithCredentials()">Register
+        </button>
+      </div>
+    </form>
+    <div class="sign-up-divider" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="sign-up-divider-line"></div>
+      <span>OR</span>
+      <div class="sign-up-divider-line"></div>
+    </div>
+    <div class="oauth-sign-up-methods-container" fxLayout="row" fxLayoutAlign="center">
+      <button mat-button aria-label="Register with google" (click)="signUpWithOAuth2('google')">
+        <mat-icon class="google-icon" svgIcon="google-icon"></mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="login-link-container" fxLayout="column" fxLayoutAlign=" center" fxFlexAlign="end">
+    <p (click)="router.navigate(['/login'])">
+      Already have an account? <span class="sign-in-link">Click here to login</span>
+    </p>
+  </div>
+</div>
+<div *ngIf="singUpInProgress" class="sing-up-in-progress" fxLayout="column" fxLayoutAlign="center center">
+  <h3>Signing up... It may take for a while</h3>
+  <mat-spinner></mat-spinner>
+</div>

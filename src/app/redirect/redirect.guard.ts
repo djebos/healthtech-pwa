@@ -15,7 +15,7 @@ export class RedirectGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
     if (this.authService.isUserSignedIn()) {
-      this.redirectService.redirectUserToHomePage(this.authService.getUser());
+      this.redirectService.redirectUserToHomePage(this.authService.getUserFromStorage());
       return false;
     } else {
       this.router.navigate(['/login']);

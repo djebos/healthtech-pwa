@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log('AuthGuard#canActivate called');
     if (this.authService.isUserSignedIn()) {
-      console.log('current user = ' + this.authService.getUser().email);
+      console.log('current user = ' + this.authService.getUserFromStorage().email);
       return true;
     } else {
       console.log('redirect to login');

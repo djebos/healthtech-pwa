@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../service/auth.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {MatIconRegistry} from '@angular/material';
+import {MatIconRegistry, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroup} from '@angular/forms';
 import {flatMap} from 'rxjs/operators';
 import {RedirectService} from '../service/redirect.service';
@@ -13,11 +13,14 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  durationInSeconds = 3;
   loginForm = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
-  constructor(private router: Router, private redirectService: RedirectService, public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  loginInProgress = false;
+
+  constructor(private snackBar: MatSnackBar, private router: Router, private redirectService: RedirectService, public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'google-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/google-icon1.svg'));
@@ -31,18 +34,27 @@ export class LoginComponent implements OnInit {
   }
 
   regularLogin() {
-    this.authService.signIn(this.loginForm.value.email, this.loginForm.value.password).pipe(
-      flatMap(((value, index) => value))
-    ).subscribe((result) => {
-      if (result) {
-        this.redirectService.redirectUserToHomePage(this.authService.getUser(), this.authService.redirectUri);
-      } else {
-        this.logoutAndNavigateToLogin();
+    this.loginInProgress = true;
+    this.authService.signInWithCredentials(this.loginForm.value.email, this.loginForm.value.password).pipe(
+      flatMap(((value, index) => value))).subscribe((result) => {
+        if (result) {
+          this.loginInProgress = false;
+          this.redirectService.redirectUserToHomePage(this.authService.getUserFromStorage(), this.authService.redirectUri);
+        } else {
+          this.loginInProgress = false;
+          this.openLoginSnackBar('Failed to login. Problem on our end');
+        }
+      }, () => {
+        this.loginInProgress = false;
+        this.openLoginSnackBar('Failed to login. Invalid login or password');
+        this.loginForm.get('password').reset('');
       }
-    });
+    );
   }
-  private logoutAndNavigateToLogin() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+
+  openLoginSnackBar(message: string) {
+    this.snackBar.open(message, 'close', {
+      duration: this.durationInSeconds * 1000,
+    });
   }
 }

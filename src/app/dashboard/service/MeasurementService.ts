@@ -18,7 +18,7 @@ export class MeasurementService {
       [MeasurementType.PRESSURE, MeasurementUnit.MERCURY_MM]]
   );
 
-  private readonly measurementEntriesResourcePath = '/v1/measurement-entries';
+  private readonly measurementEntriesResourcePath = '/v1/measurements';
 
   constructor(private http: HttpClient) {
   }

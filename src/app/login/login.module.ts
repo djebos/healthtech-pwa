@@ -16,6 +16,7 @@ import {LoginCallbackComponent} from './login-callback/login-callback.component'
 import {ReactiveFormsModule} from '@angular/forms';
 import {FlexModule} from '@angular/flex-layout';
 import { SigUpComponent } from './sig-up/sig-up.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [LoginComponent, LoginCallbackComponent, SigUpComponent],
@@ -29,7 +30,8 @@ import { SigUpComponent } from './sig-up/sig-up.component';
     MatInputModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
-    FlexModule
+    FlexModule,
+    MatSnackBarModule
   ],
   providers: [AuthService]
 })

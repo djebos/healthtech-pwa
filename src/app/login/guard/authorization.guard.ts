@@ -15,7 +15,7 @@ export class AuthorizationGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
-    const userRoles: Role[] = this.authService.getUser().roles;
+    const userRoles: Role[] = this.authService.getUserFromStorage().roles;
     console.log('actual roles = ' + userRoles);
     console.log('actual roles size = ' + userRoles.length);
     const expectedRoles: string[] = next.data.roles;
