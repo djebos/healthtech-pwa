@@ -1,0 +1,15 @@
+<form [formGroup]="temperatureForm" class="measurement-form" fxLayout="column"
+      (keydown.enter)="$event.preventDefault()">
+  <mat-form-field>
+    <mat-label>Temperature</mat-label>
+    <input matInput formControlName="value" appAutofocus placeholder="Type temperature here" [maxLength]="5" [type]="'number'"/>
+    <mat-hint>change-me</mat-hint>
+    <span matSuffix>{{getUnitForMeasurementType()}}</span>
+    <mat-error *ngIf="temperatureForm.get('value').hasError('min')">
+      Minimum temperature value is '{{temperatureForm.get('value').getError('min').min}}'
+    </mat-error>
+    <mat-error *ngIf="temperatureForm.get('value').hasError('max')">
+      Maximum temperature value is '{{temperatureForm.get('value').getError('max').max}}'
+    </mat-error>
+  </mat-form-field>
+</form>

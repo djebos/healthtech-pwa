@@ -34,12 +34,16 @@ export class SigUpComponent implements OnInit {
   registerWithCredentials() {
     this.singUpInProgress = true;
     this.authService.signUpWithCredentials(this.signUpForm.get('email').value, this.signUpForm.get('password').value).subscribe(() => {
-        this.openSignUpSnackBar('Sign up resp! Now you can login');
-        this.signUpForm.reset();
-        this.singUpInProgress = false;
-        this.router.navigate(['/login']);
+      this.snackBar.open('Sign up resp! Now you can login', 'close', {
+        duration: this.durationInSeconds * 1000,
+      });
+      this.signUpForm.reset();
+      this.singUpInProgress = false;
+      this.router.navigate(['/login']);
     }, error => {
-      this.openSignUpSnackBar('Error during sign up: ' + error.err);
+      this.snackBar.open('Error during sign up: ' + error.err, '', {
+        duration: this.durationInSeconds * 1000, panelClass: 'snackbar-error'
+      });
       this.singUpInProgress = false;
     });
   }
@@ -54,11 +58,5 @@ export class SigUpComponent implements OnInit {
 
   signUpWithOAuth2(providerId: string) {
     this.authService.signInWithOAuth(providerId);
-  }
-
-  openSignUpSnackBar(message: string) {
-    this.snackBar.open(message, 'close', {
-      duration: this.durationInSeconds * 1000,
-    });
   }
 }

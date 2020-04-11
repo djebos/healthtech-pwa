@@ -42,19 +42,18 @@ export class LoginComponent implements OnInit {
           this.redirectService.redirectUserToHomePage(this.authService.getUserFromStorage(), this.authService.redirectUri);
         } else {
           this.loginInProgress = false;
-          this.openLoginSnackBar('Failed to login. Problem on our end');
+          this.snackBar.open('Failed to login. Problem on our end', '', {
+            duration: this.durationInSeconds * 1000, panelClass: 'snackbar-error'
+          });
         }
       }, () => {
         this.loginInProgress = false;
-        this.openLoginSnackBar('Failed to login. Invalid login or password');
+        this.snackBar.open('Failed to login. Invalid login or password', '', {
+          duration: this.durationInSeconds * 1000, panelClass: 'snackbar-error'
+        });
         this.loginForm.get('password').reset('');
       }
     );
   }
 
-  openLoginSnackBar(message: string) {
-    this.snackBar.open(message, 'close', {
-      duration: this.durationInSeconds * 1000,
-    });
-  }
 }

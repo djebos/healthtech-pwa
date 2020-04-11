@@ -1,0 +1,27 @@
+<form [formGroup]="pressureForm" class="measurement-form" fxLayout="column" fxLayoutGap="20px"
+      (keydown.enter)="$event.preventDefault()">
+  <mat-form-field>
+    <mat-label>Systolic</mat-label>
+    <input matInput formControlName="systolic" appAutofocus placeholder="Type systolic pressure here" [maxLength]="3" [type]="'number'"/>
+    <mat-hint>change-me</mat-hint>
+    <span matSuffix>{{getUnitForMeasurementType()}}</span>
+    <mat-error *ngIf="pressureForm.get('systolic').hasError('min')">
+      Minimal diastolic pressure value is '{{pressureForm.get('systolic').getError('min').min}}'
+    </mat-error>
+    <mat-error *ngIf="pressureForm.get('systolic').hasError('max')">
+      Maximum diastolic pressure value is '{{pressureForm.get('systolic').getError('max').max}}'
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Diastolic</mat-label>
+    <input matInput formControlName="diastolic" placeholder="Type diastolic pressure here" [maxLength]="3" [type]="'number'"/>
+    <mat-hint>change-me</mat-hint>
+    <span matSuffix>{{getUnitForMeasurementType()}}</span>
+    <mat-error *ngIf="pressureForm.get('diastolic').hasError('min')">
+      Minimal diastolic pressure value is '{{pressureForm.get('diastolic').getError('min').min}}'
+    </mat-error>
+    <mat-error *ngIf="pressureForm.get('diastolic').hasError('max')">
+      Maximum diastolic pressure value is '{{pressureForm.get('diastolic').getError('max').max}}'
+    </mat-error>
+  </mat-form-field>
+</form>

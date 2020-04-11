@@ -3,10 +3,14 @@ import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
 import {MeasurementsByDate} from '../data/MeasurementsByDate';
-import {CreateMeasurementRequest} from '../data/CreateMeasurementRequest';
 import {MeasurementEntry} from '../data/MeasurementEntry';
 import {MeasurementType} from '../data/MeasurementType';
 import {MeasurementUnit} from '../data/MeasurementUnit';
+import {CreatePulseRequest} from '../data/CreatePulseRequest';
+import {CreatePressureRequest} from '../data/CreatePressureRequest';
+import {CreateTempRequest} from '../data/CreateTempRequest';
+import {CreateWeightRequest} from '../data/CreateWeightRequest';
+import {CreateGlucoseRequest} from '../data/CreateGlucoseRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +36,24 @@ export class MeasurementService {
     return this.http.get<MeasurementsByDate[]>(environment.apiUrl + this.measurementEntriesResourcePath, {params});
   }
 
-  public createMeasurement(newMeasurement: CreateMeasurementRequest): Observable<MeasurementEntry> {
-    console.log('create body {}', newMeasurement);
-    return this.http.post<MeasurementEntry>(environment.apiUrl + this.measurementEntriesResourcePath, newMeasurement);
+  public createPulse(newPulse: CreatePulseRequest): Observable<MeasurementEntry> {
+    return this.http.post<MeasurementEntry>(environment.apiUrl + this.measurementEntriesResourcePath + '/pulse', newPulse);
+  }
+
+  public createPressure(newPressure: CreatePressureRequest): Observable<MeasurementEntry> {
+    return this.http.post<MeasurementEntry>(environment.apiUrl + this.measurementEntriesResourcePath + '/pressure', newPressure);
+  }
+
+  public createTemp(newTemp: CreateTempRequest): Observable<MeasurementEntry> {
+    return this.http.post<MeasurementEntry>(environment.apiUrl + this.measurementEntriesResourcePath + '/temp', newTemp);
+  }
+
+  public createWeight(newWeight: CreateWeightRequest): Observable<MeasurementEntry> {
+    return this.http.post<MeasurementEntry>(environment.apiUrl + this.measurementEntriesResourcePath + '/weight', newWeight);
+  }
+
+  public createGlucose(newGlucose: CreateGlucoseRequest): Observable<MeasurementEntry> {
+    return this.http.post<MeasurementEntry>(environment.apiUrl + this.measurementEntriesResourcePath + '/glucose', newGlucose);
   }
 
   public getUnitForType(type: MeasurementType): MeasurementUnit {

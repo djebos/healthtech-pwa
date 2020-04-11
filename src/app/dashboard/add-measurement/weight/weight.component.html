@@ -1,0 +1,15 @@
+<form [formGroup]="weightForm" class="measurement-form" fxLayout="column"
+      (keydown.enter)="$event.preventDefault()">
+  <mat-form-field>
+    <mat-label>Weight</mat-label>
+    <input matInput formControlName="value" appAutofocus placeholder="Type weight here" [maxLength]="6" [type]="'number'"/>
+    <mat-hint>change-me</mat-hint>
+    <span matSuffix>{{getUnitForMeasurementType()}}</span>
+    <mat-error *ngIf="weightForm.get('value').hasError('min')">
+      Minimum temperature value is '{{weightForm.get('value').getError('min').min}}'
+    </mat-error>
+    <mat-error *ngIf="weightForm.get('value').hasError('max')">
+      Minimum temperature value is '{{weightForm.get('value').getError('max').max}}'
+    </mat-error>
+  </mat-form-field>
+</form>

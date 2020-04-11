@@ -44,18 +44,7 @@
   </div>
 </div>
 
-<form [formGroup]="measurementForm" class="measurement-form" fxLayout="column"
-      (keydown.enter)="$event.preventDefault()">
-  <mat-form-field>
-    <mat-label>Value</mat-label>
-    <input matInput formControlName="value" placeholder="Type value here" type="text"/>
-    <mat-hint>change-me</mat-hint>
-    <span matSuffix>{{getUnitForSelectedMeasurementType()}}</span>
-    <mat-error *ngIf="measurementForm.get('value').hasError('pattern')">
-      Please enter a valid value
-    </mat-error>
-  </mat-form-field>
-</form>
 <div class="create-measurement-btn-container">
-  <button mat-button color="primary" (click)="onSubmit()">Create</button>
+  <button mat-button color="primary" [disabled]="!measurementCreationComp.isValid()" (click)="onSubmit()">Create</button>
 </div>
+<router-outlet (activate)="onActivate($event)"></router-outlet>

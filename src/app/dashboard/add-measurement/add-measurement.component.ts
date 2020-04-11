@@ -1,47 +1,38 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
 import {MeasurementService} from '../service/MeasurementService';
 import {CreateMeasurementRequest} from '../data/CreateMeasurementRequest';
 import {MeasurementType} from '../data/MeasurementType';
 import {EnumUtils} from '../data/EnumUtils';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-measurement',
   templateUrl: './add-measurement.component.html',
   styleUrls: ['./add-measurement.component.css']
 })
-export class AddMeasurementComponent {
-  measurementForm = new FormGroup({
-    value: new FormControl('', {validators: [(control: AbstractControl): { [key: string]: any } | null => this.patternByTypeValidator(control)]}),
-  } );
+export class AddMeasurementComponent implements OnInit{
 
-  measurementTypeSelected = MeasurementType.PULSE;
+  measurementTypeSelected;
+  measurementCreationComp;
 
-  constructor(private measurementService: MeasurementService) {
+  constructor(private router: Router, private measurementService: MeasurementService) {
   }
 
   onMeasurementTypeSelect(measurementType: string) {
     this.measurementTypeSelected = EnumUtils.toMeasurementType(measurementType);
+    this.router.navigate(['/add-measurement/' + measurementType]);
   }
 
   public onSubmit() {
-    const measurementToCreate = new CreateMeasurementRequest(this.measurementForm.get('value').value,
-      this.getUnitForSelectedMeasurementType(), this.measurementTypeSelected);
-    this.measurementService.createMeasurement(measurementToCreate).subscribe(next => console.log(next));
+    this.measurementCreationComp.create();
   }
 
-  public getUnitForSelectedMeasurementType() {
-    return this.measurementService.getUnitForType(this.measurementTypeSelected);
+  onActivate(componentRef) {
+    this.measurementCreationComp = componentRef;
   }
 
-  public patternByTypeValidator(control: AbstractControl): ValidationErrors | null {
-    const val: string = control.value;
-    if (this.measurementTypeSelected === MeasurementType.PULSE) {
-      if (!/^\d{2,3}$/.test(val)) {
-        console.log('invalid pulse');
-        return {pattern: 'pattern'};
-      }
-    }
-    return null;
+  ngOnInit(): void {
+    this.onMeasurementTypeSelect('pulse');
   }
 }

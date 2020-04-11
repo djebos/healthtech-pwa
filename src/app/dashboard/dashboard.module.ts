@@ -7,14 +7,18 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatProgressBarModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MeasurementListComponent} from './measurement-list/measurement-list.component';
-import {AddPulseComponent} from './add-pulse/add-pulse.component';
 import {DefaultModule} from '../shared/modules/default/default.module';
 import {AddMeasurementComponent} from './add-measurement/add-measurement.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { PulseComponent } from './add-measurement/pulse/pulse.component';
+import { WeightComponent } from './add-measurement/weight/weight.component';
+import { GlucoseComponent } from './add-measurement/glucose/glucose.component';
+import { TempComponent } from './add-measurement/temp/temp.component';
+import { PressureComponent } from './add-measurement/pressure/pressure.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, MeasurementListComponent, AddPulseComponent, AddMeasurementComponent],
+  declarations: [DashboardComponent, MeasurementListComponent, AddMeasurementComponent, PulseComponent, WeightComponent, GlucoseComponent, TempComponent, PressureComponent],
   imports: [
     CommonModule,
     MatCardModule,
