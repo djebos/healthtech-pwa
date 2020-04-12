@@ -1,7 +1,7 @@
 import {Role} from './Role';
 
 export class UserProfile {
-  constructor(private _email: string, private _name: string, private _picture: string, private _roles: Role[]) {
+  constructor(private _email: string, private _name: string, private _pictureUrl: string, private _roles: Role[]) {
   }
 
 
@@ -21,12 +21,12 @@ export class UserProfile {
     this._name = value;
   }
 
-  get picture(): string {
-    return this._picture;
+  get pictureUrl(): string {
+    return this._pictureUrl;
   }
 
-  set picture(value: string) {
-    this._picture = value;
+  set pictureUrl(value: string) {
+    this._pictureUrl = value;
   }
 
   get roles(): Role[] {

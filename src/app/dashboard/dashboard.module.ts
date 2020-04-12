@@ -15,10 +15,13 @@ import { WeightComponent } from './add-measurement/weight/weight.component';
 import { GlucoseComponent } from './add-measurement/glucose/glucose.component';
 import { TempComponent } from './add-measurement/temp/temp.component';
 import { PressureComponent } from './add-measurement/pressure/pressure.component';
+import { NotificationListComponent } from './notifications/notification-list/notification-list.component';
+import { RecommendationListComponent } from './recommendations/recommendation-list/recommendation-list.component';
+import { ProfileSettingsComponent } from './settings/profile-settings/profile-settings.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, MeasurementListComponent, AddMeasurementComponent, PulseComponent, WeightComponent, GlucoseComponent, TempComponent, PressureComponent],
+  declarations: [DashboardComponent, MeasurementListComponent, AddMeasurementComponent, PulseComponent, WeightComponent, GlucoseComponent, TempComponent, PressureComponent, NotificationListComponent, RecommendationListComponent, ProfileSettingsComponent],
   imports: [
     CommonModule,
     MatCardModule,

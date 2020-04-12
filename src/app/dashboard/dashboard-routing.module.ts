@@ -10,6 +10,9 @@ import {PulseComponent} from './add-measurement/pulse/pulse.component';
 import {PressureComponent} from './add-measurement/pressure/pressure.component';
 import {WeightComponent} from './add-measurement/weight/weight.component';
 import {TempComponent} from './add-measurement/temp/temp.component';
+import {NotificationListComponent} from './notifications/notification-list/notification-list.component';
+import {ProfileSettingsComponent} from './settings/profile-settings/profile-settings.component';
+import {RecommendationListComponent} from './recommendations/recommendation-list/recommendation-list.component';
 
 const routes: Routes = [
   {
@@ -36,6 +39,24 @@ const routes: Routes = [
       {path: 'glucose', component: GlucoseComponent},
       {path: 'temp', component: TempComponent}
     ]
+  },
+  {
+    path: 'notifications',
+    component: NotificationListComponent,
+    canActivate: [AuthGuard, AuthorizationGuard],
+    data: {roles: ['USER']}
+  },
+  {
+    path: 'settings',
+    component: ProfileSettingsComponent,
+    canActivate: [AuthGuard, AuthorizationGuard],
+    data: {roles: ['USER']}
+  },
+  {
+    path: 'recommendations',
+    component: RecommendationListComponent,
+    canActivate: [AuthGuard, AuthorizationGuard],
+    data: {roles: ['USER']}
   }
 ];
 
