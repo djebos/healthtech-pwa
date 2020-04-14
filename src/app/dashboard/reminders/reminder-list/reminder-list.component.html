@@ -1,0 +1,87 @@
+<div fxLayout="row" class="reminder-types-container">
+  <div class="reminder-types-buttons-container" fxLayout="row wrap" fxLayoutAlign="space-between space-between">
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="pulse"></mat-icon>
+        <span>Pulse</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="pressure"></mat-icon>
+        <span>Pressure</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="glucose"></mat-icon>
+        <span>Glucose</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="weight"></mat-icon>
+        <span>Weight</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon svgIcon="temperature"></mat-icon>
+        <span>Temp</span>
+      </div>
+    </button>
+    <button mat-button>
+      <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+        <i class="material-icons" aria-hidden="false" aria-label="All">add</i>
+        <span>All</span>
+      </div>
+    </button>
+  </div>
+</div>
+<mat-list fxLayout="column" fxLayoutAlign="start center" class="reminder-history">
+  <h3 class="reminders-header" mat-subheader>Reminders</h3>
+  <div *ngFor="let event of events" class="reminders-by-date-container">
+    <mat-list-item>
+      <div mat-line fxLayout="row" fxLayoutAlign="space-between center" class="reminder-history-entry">
+        <mat-icon *ngIf="event.colorId == '1'" svgIcon="glucose" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="event.colorId == '2'" svgIcon="temperature" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="event.colorId == '3'" svgIcon="pressure" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="event.colorId == '4'" svgIcon="weight" mat-list-icon class=""></mat-icon>
+        <mat-icon *ngIf="event.colorId == '5'" svgIcon="pulse" mat-list-icon class=""></mat-icon>
+        <span class="reminder-history-entry-value">{{event.summary}}</span>
+        <span class="reminder-history-entry-unit">{{event.recurrence}}</span>
+        <span class="reminder-history-entry-date">{{event.start.dateTime.value | date:'shortTime'}}</span>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </div>
+  <div *ngIf="events.length < 1" class="no-reminders-found" fxLayout="column" fxLayoutAlign="center center">
+    <p class="no-reminders-found-text">No reminders found</p>
+    <a class="add-reminder-link" [routerLink]="['../add-reminder']">Add new one</a>
+  </div>
+  <div *ngIf="isLoading" class="reminder-history-entries-loader">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</mat-list>
+<div class="reminder-toolbar" fxLayout="row" fxLayoutAlign="space-between">
+  <button mat-button [routerLink]="['/help']">
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Help">help</i>
+    </div>
+  </button>
+  <button mat-button [routerLink]="['/charts']">
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Show chart">show_chart</i>
+    </div>
+  </button>
+  <button mat-button [routerLink]="['/settings']">
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Account">account_circle</i>
+    </div>
+  </button>
+  <button mat-button [routerLink]="['../add-reminder']">
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Add reminder">add</i>
+    </div>
+  </button>
+</div>

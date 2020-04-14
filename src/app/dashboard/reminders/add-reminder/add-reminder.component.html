@@ -1,0 +1,71 @@
+<h1 class="reminders-header">Create new Reminder</h1>
+<div class="reminder-types-container" fxLayout="row" fxLayoutAlign="space-between">
+  <div class="reminder-type"
+       [ngClass]="findSelectedReminderType( 'pulse') ? 'reminder-type-selected' : 'reminder-type-not-selected'"
+       (click)="onReminderTypeClick( 'pulse')">
+    <mat-icon svgIcon="pulse" class="reminder-type-icon">
+      <i class="material-icons reminder-type-select-icon"
+         [ngClass]="findSelectedReminderType( 'pulse') ? 'reminder-type-icon-enabled' : 'reminder-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="reminder-type"
+       [ngClass]="findSelectedReminderType('pressure') ? 'reminder-type-selected' : 'reminder-type-not-selected'"
+       (click)="onReminderTypeClick( 'pressure')">
+    <mat-icon svgIcon="pressure" class="reminder-type-icon">
+      <i class="material-icons reminder-type-select-icon"
+         [ngClass]="findSelectedReminderType( 'pressure') ? 'reminder-type-icon-enabled' : 'reminder-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="reminder-type"
+       [ngClass]="findSelectedReminderType( 'glucose') ? 'reminder-type-selected' : 'reminder-type-not-selected'"
+       (click)="onReminderTypeClick( 'glucose')">
+    <mat-icon svgIcon="glucose" class="reminder-type-icon">
+      <i class="material-icons reminder-type-select-icon"
+         [ngClass]="findSelectedReminderType('glucose') ? 'reminder-type-icon-enabled' : 'reminder-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="reminder-type"
+       [ngClass]="findSelectedReminderType( 'weight') ? 'reminder-type-selected' : 'reminder-type-not-selected'"
+       (click)="onReminderTypeClick( 'weight')">
+    <mat-icon svgIcon="weight" class="reminder-type-icon">
+      <i class="material-icons reminder-type-select-icon"
+         [ngClass]="findSelectedReminderType('weight')? 'reminder-type-icon-enabled' : 'reminder-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="reminder-type"
+       [ngClass]="findSelectedReminderType( 'temp') ? 'reminder-type-selected' : 'reminder-type-not-selected'"
+       (click)="onReminderTypeClick('temp')">
+    <mat-icon svgIcon="temperature" class="reminder-type-icon">
+      <i class="material-icons reminder-type-select-icon"
+         [ngClass]="findSelectedReminderType( 'temp') ? 'reminder-type-icon-enabled' : 'reminder-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+</div>
+<form [formGroup]="createReminderForm" class="reminder-form" fxLayout="column" fxLayoutGap="20px"
+      (keydown.enter)="$event.preventDefault()">
+  <mat-form-field>
+    <mat-label>Time</mat-label>
+    <input [min]="currentDate" matInput formControlName="dateTime" [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+    <owl-date-time [pickerMode]="'dialog'" #dt></owl-date-time>
+    <mat-hint>change-me</mat-hint>
+    <mat-error *ngIf="createReminderForm.get('dateTime').hasError('owlDateTimeMin')">
+      Date should be in future
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Repeat</mat-label>
+    <mat-select formControlName="recurrence">
+      <mat-option [value]="'RRULE:FREQ=DAILY'">
+        Every Day
+      </mat-option>
+    </mat-select>
+    <mat-hint>change-me</mat-hint>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput formControlName="description" placeholder="Type description here" [maxLength]="255" [type]="'text'"/>
+  </mat-form-field>
+</form>
+<div class="create-reminder-btn-container">
+  <button class="create-reminder-btn" mat-button color="primary" [disabled]="createReminderForm.invalid" (click)="createReminder()">Create</button>
+</div>

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {AuthorizationGuard} from '../login/guard/authorization.guard';
 import {AuthGuard} from '../login/guard/auth.guard';
 import {DashboardComponent} from './dashboard/dashboard.component';
@@ -10,9 +10,11 @@ import {PulseComponent} from './add-measurement/pulse/pulse.component';
 import {PressureComponent} from './add-measurement/pressure/pressure.component';
 import {WeightComponent} from './add-measurement/weight/weight.component';
 import {TempComponent} from './add-measurement/temp/temp.component';
-import {NotificationListComponent} from './notifications/notification-list/notification-list.component';
 import {ProfileSettingsComponent} from './settings/profile-settings/profile-settings.component';
 import {RecommendationListComponent} from './recommendations/recommendation-list/recommendation-list.component';
+import {ReminderListComponent} from './reminders/reminder-list/reminder-list.component';
+import {AddReminderComponent} from './reminders/add-reminder/add-reminder.component';
+import {RemindersRootComponent} from './reminders/reminders-root/reminders-root.component';
 
 const routes: Routes = [
   {
@@ -22,7 +24,7 @@ const routes: Routes = [
     data: {roles: ['USER']}
   },
   {
-    path: 'measurement-list',
+    path: 'measurements',
     component: MeasurementListComponent,
     canActivate: [AuthGuard, AuthorizationGuard],
     data: {roles: ['USER']}
@@ -33,6 +35,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, AuthorizationGuard],
     data: {roles: ['USER']},
     children: [
+      {path:'', redirectTo: 'pulse', pathMatch: 'full' },
       {path: 'pulse', component: PulseComponent},
       {path: 'pressure', component: PressureComponent},
       {path: 'weight', component: WeightComponent},
@@ -41,10 +44,15 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'notifications',
-    component: NotificationListComponent,
+    path: 'reminders',
+    component: RemindersRootComponent,
     canActivate: [AuthGuard, AuthorizationGuard],
-    data: {roles: ['USER']}
+    data: {roles: ['USER']},
+    children: [
+      {path:'', redirectTo: 'list', pathMatch: 'full'},
+      {path: 'list', component: ReminderListComponent},
+      {path: 'add-reminder', component: AddReminderComponent}
+    ]
   },
   {
     path: 'settings',

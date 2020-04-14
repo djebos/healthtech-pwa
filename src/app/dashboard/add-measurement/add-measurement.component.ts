@@ -11,12 +11,12 @@ import {Router} from '@angular/router';
   templateUrl: './add-measurement.component.html',
   styleUrls: ['./add-measurement.component.css']
 })
-export class AddMeasurementComponent implements OnInit{
+export class AddMeasurementComponent implements OnInit {
 
   measurementTypeSelected;
   measurementCreationComp;
 
-  constructor(private router: Router, private measurementService: MeasurementService) {
+  constructor(private router: Router) {
   }
 
   onMeasurementTypeSelect(measurementType: string) {

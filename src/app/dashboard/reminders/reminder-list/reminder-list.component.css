@@ -1,0 +1,64 @@
+.reminder-types-container {
+  height: 20%;
+  padding-top: 10px;
+}
+
+.reminder-types-container button {
+  width: 15%;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+
+.reminder-history {
+  height: 70%;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.reminder-toolbar {
+  height: 5%;
+}
+.reminder-toolbar button {
+  width: 25%;
+}
+
+.no-reminders-found {
+  height: 100%;
+}
+
+.reminder-history-entry-unit {
+  width: 20%;
+}
+
+.reminder-history-entry-value {
+  width: 20%;
+}
+
+.reminder-history-entries-loader {
+  width: 100%;
+  position: absolute;
+  bottom: 1px;
+}
+
+.add-reminder-link {
+  color: #91e6a2;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.add-reminder-link:hover {
+  color: blue;
+}
+
+.no-reminders-found-text {
+  font-size: 16px;
+}
+
+.reminders-by-date-container {
+  width: 100%;
+}
+
+.reminders-header {
+  font-size: 16px;
+}
