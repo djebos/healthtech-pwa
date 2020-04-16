@@ -55,8 +55,14 @@
   <mat-form-field>
     <mat-label>Repeat</mat-label>
     <mat-select formControlName="recurrence">
-      <mat-option [value]="'RRULE:FREQ=DAILY'">
+      <mat-option [value]="''">
+        No Repeat
+      </mat-option>
+      <mat-option [value]="'daily'">
         Every Day
+      </mat-option>
+      <mat-option [value]="'weekly'">
+        Every Week
       </mat-option>
     </mat-select>
     <mat-hint>change-me</mat-hint>
@@ -64,8 +70,11 @@
   <mat-form-field>
     <mat-label>Description</mat-label>
     <input matInput formControlName="description" placeholder="Type description here" [maxLength]="255" [type]="'text'"/>
+    <mat-error *ngIf="createReminderForm.get('description').hasError('minlength')">
+      Min length is '{{createReminderForm.get('description').getError('minlength').requiredLength}}'
+    </mat-error>
   </mat-form-field>
 </form>
 <div class="create-reminder-btn-container">
-  <button class="create-reminder-btn" mat-button color="primary" [disabled]="createReminderForm.invalid" (click)="createReminder()">Create</button>
+  <button class="create-reminder-btn" mat-button color="primary" [disabled]="createReminderForm.invalid || remindersTypeSelected.length < 1" (click)="createReminder()">Create</button>
 </div>

@@ -15,6 +15,7 @@ import {LoginModule} from './login/login.module';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {FlexModule} from '@angular/flex-layout';
 import {OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {DateFormatHttpInterceptor} from './interceptor/date-format-http-interceptor';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,12 @@ import {OwlNativeDateTimeModule} from 'ng-pick-datetime';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenExpirationInterceptor,
       multi: true
-    }
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DateFormatHttpInterceptor,
+      multi: true
+    },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,13 @@
+:host {
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: auto;
+  position: relative;
+  height: 93%;
+}
+
 .reminders-header {
   padding: 10px
 }

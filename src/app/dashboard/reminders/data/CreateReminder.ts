@@ -3,6 +3,6 @@ export class CreateReminder {
   public colorId: string;
   public description: string;
   public recurrence: string[] = [];
-  public startTime: Date;
+  public startTime: string;
 
 }

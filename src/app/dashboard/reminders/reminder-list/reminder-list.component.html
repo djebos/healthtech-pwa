@@ -49,7 +49,7 @@
         <mat-icon *ngIf="event.colorId == '4'" svgIcon="weight" mat-list-icon class=""></mat-icon>
         <mat-icon *ngIf="event.colorId == '5'" svgIcon="pulse" mat-list-icon class=""></mat-icon>
         <span class="reminder-history-entry-value">{{event.summary}}</span>
-        <span class="reminder-history-entry-unit">{{event.recurrence}}</span>
+        <span class="reminder-history-entry-unit" *ngIf="event.recurrence.length > 0">{{parseRecurrence(event.recurrence[0])}}</span>
         <span class="reminder-history-entry-date">{{event.start.dateTime.value | date:'shortTime'}}</span>
       </div>
     </mat-list-item>
