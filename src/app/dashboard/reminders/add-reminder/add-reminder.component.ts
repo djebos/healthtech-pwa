@@ -28,17 +28,32 @@ export class AddReminderComponent implements OnInit {
   }
 
   createReminder() {
-    const newReminder  = new CreateReminder();
-    newReminder.recurrence.push(this.createReminderForm.get('recurrence').value);
-    newReminder.colorId = '1';
+    const newReminder = new CreateReminder();
+    if (this.createReminderForm.get('recurrence').value !== '') {
+      newReminder.recurrence = [this.createReminderForm.get('recurrence').value];
+    }
+    if (this.remindersTypeSelected.length > 1) {
+      newReminder.colorId = '6';
+    } else {
+      newReminder.colorId = Object.keys(MeasurementType).indexOf(this.getEnumName()).toString();
+    }
     newReminder.description = this.createReminderForm.get('description').value;
-    newReminder.title = 'Measure Pressure';
+    newReminder.title = this.getTitle();
     newReminder.startTime = this.datePipe.transform(this.createReminderForm.get('dateTime').value, 'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ');
-    console.log('Sending dateTime: '  + newReminder.startTime);
     this.remindersService.createReminder(newReminder).subscribe(createdReminder => {
-      console.log('Created reminder: ' + createdReminder);
       this.createReminderForm.reset();
     });
+  }
+
+  private getEnumName(): string {
+    const enumName = this.remindersTypeSelected[0].valueOf().toUpperCase();
+    return enumName === 'TEMP' ? 'TEMPERATURE' : enumName;
+  }
+
+  private getTitle() {
+    const selectedReminderTypes = this.remindersTypeSelected.map(value => value.toString())
+      .reduce((previousValue, currentValue) => previousValue.concat(', ' + currentValue));
+    return 'Measure ' + selectedReminderTypes;
   }
 
   onReminderTypeClick(type: string) {

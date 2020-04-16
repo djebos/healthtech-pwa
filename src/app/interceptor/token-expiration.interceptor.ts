@@ -18,7 +18,6 @@ export class TokenExpirationInterceptor implements HttpInterceptor {
       .pipe(
         tap(event => {
           if (event instanceof HttpResponse) {
-            // skip if everything is ok
           }
         }, err => {
           if (err instanceof HttpErrorResponse) {

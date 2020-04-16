@@ -1,17 +1,15 @@
-.reminder-types-container {
-  height: 20%;
-  padding-top: 10px;
+:host {
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: auto;
+  position: relative;
+  height: 93%;
 }
-
-.reminder-types-container button {
-  width: 15%;
-  font-size: 12px;
-  line-height: 24px;
-}
-
 
 .reminder-history {
-  height: 70%;
+  height: 95%;
   overflow-y: scroll;
   position: relative;
 }
@@ -26,13 +24,19 @@
 .no-reminders-found {
   height: 100%;
 }
-
-.reminder-history-entry-unit {
+.reminder-history-entry {
+  width: 100%;
+  overflow: auto;
+}
+.reminder-history-entry-date {
   width: 20%;
 }
 
-.reminder-history-entry-value {
-  width: 20%;
+.reminder-history-entry-recurrence {
+  width: 40%;
+}
+
+.reminder-type-icon {
 }
 
 .reminder-history-entries-loader {
@@ -55,7 +59,7 @@
   font-size: 16px;
 }
 
-.reminders-by-date-container {
+.reminders-container {
   width: 100%;
 }
 

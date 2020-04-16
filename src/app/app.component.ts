@@ -57,6 +57,9 @@ export class AppComponent {
     iconRegistry.addSvgIcon(
       'weight',
       sanitizer.bypassSecurityTrustResourceUrl('assets/scale.svg'));
+    iconRegistry.addSvgIcon(
+      'multipleTypesReminder',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/multiple.svg'));
   }
 
   @HostListener('window:beforeinstallprompt', ['$event'])

@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
 export class DateFormatHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Request intercepted by date interceptor');
     if (req.method === 'POST' || req.method === 'PUT') {
       this.shiftDates(req.body);
     }

@@ -15,8 +15,10 @@ export class ReminderListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.remindersService.getReminders().subscribe((receivedEvents: Event[]) => {
       this.events = receivedEvents;
+      this.isLoading = false;
     });
   }
 
@@ -37,5 +39,4 @@ export class ReminderListComponent implements OnInit {
       return null;
     }
   }
-
 }
