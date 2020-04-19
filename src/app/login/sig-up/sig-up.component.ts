@@ -11,7 +11,7 @@ import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} f
   styleUrls: ['./sig-up.component.css']
 })
 export class SigUpComponent implements OnInit {
-  private singUpInProgress = false;
+  singUpInProgress = false;
   private durationInSeconds = 4;
   signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email, Validators.minLength(5)]),
@@ -22,13 +22,13 @@ export class SigUpComponent implements OnInit {
   });
 
 
-  constructor(private snackBar: MatSnackBar, private router: Router, private authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-      'google-icon',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/google-icon1.svg'));
+  constructor(private snackBar: MatSnackBar, public router: Router, private authService: AuthService, private iconRegistry: MatIconRegistry, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
+    this.iconRegistry.addSvgIcon(
+      'google-icon',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/google-icon1.svg'));
   }
 
   registerWithCredentials() {

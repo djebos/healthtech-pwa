@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   });
   loginInProgress = false;
 
-  constructor(private snackBar: MatSnackBar, private router: Router, private redirectService: RedirectService, public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(private snackBar: MatSnackBar, public router: Router, private redirectService: RedirectService, public authService: AuthService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
       'google-icon',
       sanitizer.bypassSecurityTrustResourceUrl('assets/google-icon1.svg'));
