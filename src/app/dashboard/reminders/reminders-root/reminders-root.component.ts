@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../../login/service/auth.service';
 
 @Component({
   selector: 'app-reminders-root',
@@ -7,10 +8,12 @@ import {Component, OnInit} from '@angular/core';
 })
 export class RemindersRootComponent implements OnInit {
 
-  constructor() {
+  isGoogleUser = false;
+
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
-
+    this.isGoogleUser = this.authService.getUserFromStorage().authType === 'GOOGLE';
   }
 }

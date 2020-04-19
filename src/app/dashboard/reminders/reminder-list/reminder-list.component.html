@@ -1,19 +1,27 @@
+<mat-toolbar class="top-toolbar" fxLayout="row" fxLayoutAlign="end">
+  <button class="top-toolbar-button" [color]="selectToolActive? 'accent': ''" (click)="onSelectBtnClick()" mat-flat-button>
+    Selection
+  </button>
+</mat-toolbar>
 <mat-list fxLayout="column" fxLayoutAlign="start center" class="reminder-history">
   <h3 class="reminders-header" mat-subheader>Reminders</h3>
-    <mat-list-item *ngFor="let event of events">
-      <div mat-line fxLayout="row" fxLayoutAlign="space-between center" class="reminder-history-entry">
-        <mat-icon *ngIf="event.colorId == '4'" svgIcon="glucose" mat-list-icon class="reminder-type-icon"></mat-icon>
-        <mat-icon *ngIf="event.colorId == '3'" svgIcon="weight" mat-list-icon class="reminder-type-icon"></mat-icon>
-        <mat-icon *ngIf="event.colorId == '2'" svgIcon="temperature" mat-list-icon class="reminder-type-icon"></mat-icon>
-        <mat-icon *ngIf="event.colorId == '1'" svgIcon="pressure" mat-list-icon class="reminder-type-icon"></mat-icon>
-        <mat-icon *ngIf="event.colorId == '0'" svgIcon="pulse" mat-list-icon class="reminder-type-icon"></mat-icon>
-        <mat-icon *ngIf="event.colorId == '6'" svgIcon="multipleTypesReminder" mat-list-icon class="reminder-type-icon"></mat-icon>
-        <span class="reminder-history-entry-recurrence" *ngIf="event.recurrence">{{parseRecurrence(event.recurrence[0])}}</span>
-        <span class="reminder-history-entry-date">{{event.start.dateTime.value | date:'shortTime'}}</span>
-      </div>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-  <div *ngIf="events.length < 1" class="no-reminders-found" fxLayout="column" fxLayoutAlign="center center">
+  <mat-list-item *ngFor="let event of reminders; let i = index">
+    <div mat-line fxLayout="row" fxLayoutAlign="space-between center" class="reminder-history-entry">
+      <mat-checkbox *ngIf="selectToolActive" class="delete-tool-checkbox" [(ngModel)]="selectedRemindersFlags[i]"></mat-checkbox>
+      <mat-icon *ngIf="event.colorId == '5'" svgIcon="glucose" mat-list-icon class="reminder-type-icon"></mat-icon>
+      <mat-icon *ngIf="event.colorId == '4'" svgIcon="weight" mat-list-icon class="reminder-type-icon"></mat-icon>
+      <mat-icon *ngIf="event.colorId == '3'" svgIcon="temperature" mat-list-icon class="reminder-type-icon"></mat-icon>
+      <mat-icon *ngIf="event.colorId == '2'" svgIcon="pressure" mat-list-icon class="reminder-type-icon"></mat-icon>
+      <mat-icon *ngIf="event.colorId == '1'" svgIcon="pulse" mat-list-icon class="reminder-type-icon"></mat-icon>
+      <mat-icon *ngIf="event.colorId == '6'" svgIcon="multipleTypesReminder" mat-list-icon class="reminder-type-icon"></mat-icon>
+      <span class="reminder-history-entry-recurrence"
+            *ngIf="event.recurrence; else showOneTimeEventDescription">{{parseRecurrence(event.recurrence[0])}}</span>
+      <ng-template  #showOneTimeEventDescription><span class="reminder-history-entry-recurrence">Once</span></ng-template>
+      <span class="reminder-history-entry-date">{{event.start.dateTime.value | date:'shortTime'}}</span>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <div *ngIf="reminders.length < 1" class="no-reminders-found" fxLayout="column" fxLayoutAlign="center center">
     <p class="no-reminders-found-text">No reminders found</p>
     <a class="add-reminder-link" [routerLink]="['../add-reminder']">Add new one</a>
   </div>
@@ -27,14 +35,14 @@
       <i class="material-icons" aria-hidden="false" aria-label="Help">help</i>
     </div>
   </button>
-  <button mat-button [routerLink]="['/charts']">
-    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
-      <i class="material-icons" aria-hidden="false" aria-label="Show chart">show_chart</i>
-    </div>
-  </button>
   <button mat-button [routerLink]="['/settings']">
     <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
       <i class="material-icons" aria-hidden="false" aria-label="Account">account_circle</i>
+    </div>
+  </button>
+  <button mat-button (click)="onDeleteBtnClick()" [disabled]="!(selectToolActive && selectedRemindersFlags.length > 0)">
+    <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
+      <i class="material-icons" aria-hidden="false" aria-label="Show chart">delete_outline</i>
     </div>
   </button>
   <button mat-button [routerLink]="['../add-reminder']">

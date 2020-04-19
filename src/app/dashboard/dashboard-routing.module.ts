@@ -35,7 +35,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, AuthorizationGuard],
     data: {roles: ['USER']},
     children: [
-      {path:'', redirectTo: 'pulse', pathMatch: 'full' },
+      {path: '', redirectTo: 'pulse', pathMatch: 'full'},
       {path: 'pulse', component: PulseComponent},
       {path: 'pressure', component: PressureComponent},
       {path: 'weight', component: WeightComponent},
@@ -49,7 +49,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, AuthorizationGuard],
     data: {roles: ['USER']},
     children: [
-      {path:'', redirectTo: 'list', pathMatch: 'full'},
+      {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: ReminderListComponent},
       {path: 'add-reminder', component: AddReminderComponent}
     ]

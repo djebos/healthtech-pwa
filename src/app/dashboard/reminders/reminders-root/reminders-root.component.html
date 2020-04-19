@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<router-outlet *ngIf="isGoogleUser; else remindersNotSupported"></router-outlet>
+<ng-template #remindersNotSupported>
+  <div class="reminders-not-supported" fxLayout="row" fxLayoutAlign="center center">
+    <p class="reminders-not-supported-text">
+      Reminders currently not supported for your account
+    </p>
+  </div>
+</ng-template>

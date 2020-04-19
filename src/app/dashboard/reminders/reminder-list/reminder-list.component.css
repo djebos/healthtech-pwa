@@ -8,8 +8,17 @@
   height: 93%;
 }
 
+.top-toolbar {
+  height: 4%;
+  min-height: 30px;
+}
+
+.top-toolbar-button {
+  line-height: 30px;
+}
+
 .reminder-history {
-  height: 95%;
+  height: 91%;
   overflow-y: scroll;
   position: relative;
 }

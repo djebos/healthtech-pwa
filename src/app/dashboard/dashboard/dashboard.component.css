@@ -1,10 +1,20 @@
+:host {
+  height: 93%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
+}
+
 .profile-container {
   width: 100%;
-  max-height: 500px;
-  height: 50%;
+  height: 60%;
 }
 
 .profile-image {
+  width: 50%;
   max-width: 200px;
   max-height: 200px;
   border-radius: 50%;
@@ -26,7 +36,7 @@
 }
 
 .mat-toolbar {
-  height: 50%;
+  height: 40%;
 }
 
 .material-icons.md-30 {

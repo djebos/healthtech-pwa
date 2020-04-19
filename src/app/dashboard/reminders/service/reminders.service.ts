@@ -12,11 +12,13 @@ import {CreateReminder} from '../data/CreateReminder';
 })
 export class RemindersService {
 
+  private readonly remindersApiPath = '/v1/reminders';
+
   constructor(private http: HttpClient, private datePipe: DatePipe) {
   }
 
-  getReminders(): Observable<Event[]> {
-    return this.http.get<Event[]>(environment.apiUrl + '/v1/reminders', {
+  getAllForToday(): Observable<Event[]> {
+    return this.http.get<Event[]>(environment.apiUrl + this.remindersApiPath, {
       params: new HttpParams({
           fromObject: {
             startDate: this.datePipe.transform(this.getStartTime(), 'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ'),
@@ -25,22 +27,26 @@ export class RemindersService {
           encoder: new HttpParamEncoder()
         }
       )
-  });
+    });
   }
 
-  createReminder(newReminder: CreateReminder): Observable<Event> {
-    return this.http.post<Event>(environment.apiUrl + '/v1/reminders', newReminder);
+  create(newReminder: CreateReminder): Observable<Event> {
+    return this.http.post<Event>(environment.apiUrl + this.remindersApiPath, newReminder);
   }
 
-private getEndTime(): Date {
-  const current = new Date();
-  current.setHours(23, 59, 59, 999);
-  return current;
-}
+  delete(reminderId: string): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}${this.remindersApiPath}/${reminderId}`);
+  }
 
-private getStartTime(): Date {
-  const current = new Date();
-  current.setHours(0, 0, 0, 1);
-  return current;
-}
+  private getEndTime(): Date {
+    const current = new Date();
+    current.setHours(23, 59, 59, 999);
+    return current;
+  }
+
+  private getStartTime(): Date {
+    const current = new Date();
+    current.setHours(0, 0, 0, 1);
+    return current;
+  }
 }

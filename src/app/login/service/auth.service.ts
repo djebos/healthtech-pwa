@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {UserProfile} from '../../data/UserProfile';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {delay, map} from 'rxjs/operators';
+import {delay, flatMap, map} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 
 @Injectable({
@@ -29,8 +29,8 @@ export class AuthService {
   }
 
 
-  public signInWithCredentials(email: string, password: string): Observable<Observable<boolean>> {
-    return this.http.post(environment.apiUrl + '/v1/auth/login', {email, password}).pipe(map(
+  public signInWithCredentials(email: string, password: string): Observable<boolean> {
+    return this.http.post(environment.apiUrl + '/v1/auth/login', {email, password}).pipe(flatMap(
       resp => {
         return this.loginWithToken(resp['accessToken']);
       })
@@ -45,7 +45,7 @@ export class AuthService {
     if (token) {
       console.log('Setting token');
       localStorage.setItem(AuthService.TOKEN_STORAGE_KEY, token);
-      return this.getCurrUserInfo().pipe(delay(3000), map((user: UserProfile) => {
+      return this.getCurrUserInfo().pipe(map((user: UserProfile) => {
         localStorage.setItem(AuthService.USER_STORAGE_KEY, JSON.stringify(user));
         return true;
       }));

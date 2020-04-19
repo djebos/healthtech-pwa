@@ -1,7 +1,7 @@
 import {Role} from './Role';
 
 export class UserProfile {
-  constructor(private _email: string, private _name: string, private _pictureUrl: string, private _roles: Role[]) {
+  constructor(private _email: string, private _name: string, private _pictureUrl: string, private _roles: Role[], private _authType: string) {
   }
 
 
@@ -35,5 +35,14 @@ export class UserProfile {
 
   set roles(value: Role[]) {
     this._roles = value;
+  }
+
+
+  get authType(): string {
+    return this._authType;
+  }
+
+  set authType(value: string) {
+    this._authType = value;
   }
 }

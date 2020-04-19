@@ -5,19 +5,19 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {MatCardModule} from '@angular/material/card';
 import {
-    MatButtonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatSelectModule
+  MatButtonModule, MatCheckboxModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatProgressBarModule,
+  MatSelectModule, MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MeasurementListComponent} from './measurement-list/measurement-list.component';
 import {DefaultModule} from '../shared/modules/default/default.module';
 import {AddMeasurementComponent} from './add-measurement/add-measurement.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PulseComponent } from './add-measurement/pulse/pulse.component';
 import { WeightComponent } from './add-measurement/weight/weight.component';
 import { GlucoseComponent } from './add-measurement/glucose/glucose.component';
@@ -47,7 +47,10 @@ import {OwlDateTimeModule} from 'ng-pick-datetime';
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-    OwlDateTimeModule
+    OwlDateTimeModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatToolbarModule
   ],
   providers: [DatePipe]
 })

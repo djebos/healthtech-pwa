@@ -35,8 +35,7 @@ export class LoginComponent implements OnInit {
 
   regularLogin() {
     this.loginInProgress = true;
-    this.authService.signInWithCredentials(this.loginForm.value.email, this.loginForm.value.password).pipe(
-      flatMap(((value, index) => value))).subscribe((result) => {
+    this.authService.signInWithCredentials(this.loginForm.value.email, this.loginForm.value.password).subscribe((result) => {
         if (result) {
           this.loginInProgress = false;
           this.redirectService.redirectUserToHomePage(this.authService.getUserFromStorage(), this.authService.redirectUri);

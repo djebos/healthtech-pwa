@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateReminder} from '../data/CreateReminder';
 import {RemindersService} from '../service/reminders.service';
 import {DatePipe} from '@angular/common';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-add-reminder',
@@ -21,7 +22,7 @@ export class AddReminderComponent implements OnInit {
     }
   );
 
-  constructor(private remindersService: RemindersService, private datePipe: DatePipe) {
+  constructor(private remindersService: RemindersService, private datePipe: DatePipe, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -35,13 +36,17 @@ export class AddReminderComponent implements OnInit {
     if (this.remindersTypeSelected.length > 1) {
       newReminder.colorId = '6';
     } else {
-      newReminder.colorId = Object.keys(MeasurementType).indexOf(this.getEnumName()).toString();
+      // google calendar doesn't have 0 color
+      newReminder.colorId = (Object.keys(MeasurementType).indexOf(this.getEnumName()) + 1).toString();
     }
     newReminder.description = this.createReminderForm.get('description').value;
     newReminder.title = this.getTitle();
     newReminder.startTime = this.datePipe.transform(this.createReminderForm.get('dateTime').value, 'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ');
-    this.remindersService.createReminder(newReminder).subscribe(createdReminder => {
+    this.remindersService.create(newReminder).subscribe(createdReminder => {
       this.createReminderForm.reset();
+      this.snackBar.open(`Reminder created: ${createdReminder.id}`, '', {duration: 3000});
+    }, error => {
+      this.snackBar.open(`Error creating reminder: ${error.message}`, '', {panelClass: 'snackbar-error', duration: 5000});
     });
   }
 

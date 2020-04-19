@@ -33,6 +33,5 @@ export class AddMeasurementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onMeasurementTypeSelect('pulse');
   }
 }
