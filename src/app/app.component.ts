@@ -65,27 +65,40 @@ export class AppComponent {
   @HostListener('window:beforeinstallprompt', ['$event'])
   onbeforeinstallprompt(e) {
     console.log('Before install:' + e);
-    // Prevent Chrome 67 and earlier from automatically showing the prompt
     e.preventDefault();
-    // Stash the event so it can be triggered later.
     this.deferredPrompt = e;
     this.showButton = true;
   }
 
-  addToHomeScreen() {
-    // hide our user interface that shows our A2HS button
+  @HostListener('window:appinstalled', ['$event'])
+  checkInstalled(e) {
     this.showButton = false;
-    // Show the prompt
-    this.deferredPrompt.prompt();
-    // Wait for the user to respond to the prompt
-    this.deferredPrompt.userChoice
-      .then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
-        } else {
-          console.log('User dismissed the A2HS prompt');
-        }
-        this.deferredPrompt = null;
-      });
+  }
+
+  @HostListener('window:load', ['$event'])
+  disableA2HSButoonIfAlreadyInstalled() {
+    if (matchMedia('(display-mode: standalone)').matches) {
+      console.log('Launched: Installed');
+      this.showButton = false;
+    } else {
+      console.log('Launched: Browser Tab');
+    }
+  }
+
+  addToHomeScreen() {
+    if (this.deferredPrompt) {
+      this.showButton = false;
+      this.deferredPrompt.prompt();
+      this.deferredPrompt.userChoice
+        .then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          this.deferredPrompt = null;
+        });
+    }
+
   }
 }

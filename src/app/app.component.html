@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="toolbar" fxLayout="row" fxLayoutAlign="center">
   <mat-toolbar-row class="toolbar-row">
     <span>HealthTech</span>
-    <button class="add-to-homescreen-btn" mat-raised-button color="accent" (click)="addToHomeScreen()">Add to home screen</button>
+    <button *ngIf="showButton" class="add-to-homescreen-btn" mat-raised-button color="accent" (click)="addToHomeScreen()">Add to home screen</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-progress-bar
