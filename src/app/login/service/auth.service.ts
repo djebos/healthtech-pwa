@@ -62,6 +62,7 @@ export class AuthService {
     console.log('Logging out user ' + this.getUserFromStorage().email);
     localStorage.removeItem(AuthService.TOKEN_STORAGE_KEY);
     localStorage.removeItem(AuthService.USER_STORAGE_KEY);
+    return this.router.navigate(['/login']);
   }
 
   public isUserSignedIn(): boolean {

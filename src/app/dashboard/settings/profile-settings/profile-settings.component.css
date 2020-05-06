@@ -1,0 +1,36 @@
+:host {
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  margin: auto;
+  position: relative;
+  height: 93%;
+}
+
+.settings-btn {
+  width: 50%;
+  height: 60px;
+  font-size: 16px;
+}
+
+.settings-btns {
+  width: 100%;
+  height: 100%;
+}
+
+.divider {
+  border-bottom: 1px solid grey;
+  width: 60%;
+}
+
+.logout-btn {
+  position: absolute;
+  bottom: 0;
+
+}
+
+.upload__input {
+  display: none;
+}

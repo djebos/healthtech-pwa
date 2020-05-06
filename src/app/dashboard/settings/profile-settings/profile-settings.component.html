@@ -1,3 +1,13 @@
-<p>
-  profile-settings works!
-</p>
+<div class="settings-btns" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <button class="settings-btn" mat-button (click)="exportData()">Export Data</button>
+  <button class="settings-btn" mat-button (click)="fileInput.click()">Import Data</button>
+  <div class="divider"></div>
+  <button class="settings-btn" mat-button color="warn" (click)="removeUser()">Remove Account</button>
+  <button class="settings-btn logout-btn" mat-button color="warn" (click)="logout()">Logout</button>
+  <input
+    #fileInput
+    type="file"
+    class="upload__input"
+    (change)="uploadFile( fileInput.files[0] ) ; fileInput.value = null;"
+  />
+</div>
