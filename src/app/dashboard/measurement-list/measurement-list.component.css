@@ -10,7 +10,7 @@
 }
 
 .measurement-types-container {
-  height: 20%;
+  height: 10%;
   padding-top: 10px;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .measurement-history {
-  height: 80%;
+  height: 85%;
   overflow-y: scroll;
   position: relative;
 }

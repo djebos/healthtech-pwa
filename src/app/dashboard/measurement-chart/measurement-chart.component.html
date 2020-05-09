@@ -1,0 +1,62 @@
+<div class="measurement-types-container" fxLayout="row" fxLayoutAlign="space-between" fxFlexAlign="start">
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'pulse'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'pulse')">
+    <mat-icon svgIcon="pulse" class="measurement-type-icon">
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'pulse'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'pressure'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'pressure')">
+    <mat-icon svgIcon="pressure" class="measurement-type-icon">
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'pressure'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'glucose'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'glucose')">
+    <mat-icon svgIcon="glucose" class="measurement-type-icon">
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'glucose'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'weight'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect( 'weight')">
+    <mat-icon svgIcon="weight" class="measurement-type-icon">
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'weight'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+  <div class="measurement-type"
+       [ngClass]="measurementTypeSelected == 'temp'? 'measurement-type-selected' : 'measurement-type-not-selected'"
+       (click)="onMeasurementTypeSelect('temp')">
+    <mat-icon svgIcon="temperature" class="measurement-type-icon">
+      <i class="material-icons"
+         [ngClass]="measurementTypeSelected == 'temp'? 'measurement-type-icon-enabled' : 'measurement-type-icon-disabled'">check_circle</i>
+    </mat-icon>
+  </div>
+</div>
+<div class="chart-container">
+  <canvas class="chart-canvas" baseChart
+          [datasets]="data"
+          [labels]="labels"
+          [options]="options"
+          [legend]="legend"
+          [chartType]="chartType">
+  </canvas>
+</div>
+<form [formGroup]="chartPeriodForm" class="chart-period-form" fxLayout="column" fxLayoutAlign=" center"
+      fxLayoutGap="20px">
+  <mat-form-field class="analysis-period">
+    <mat-label>Period</mat-label>
+    <mat-select formControlName="chartPeriod" (change)="loadMeasurements()">
+      <mat-option value="Week">Week</mat-option>
+      <mat-option value="Month">Month</mat-option>
+      <mat-option value="Year">Year</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

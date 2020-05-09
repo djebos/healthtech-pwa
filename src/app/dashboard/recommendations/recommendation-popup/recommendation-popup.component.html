@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Recommendation details</h2>
+<mat-dialog-content>
+  <h3>We analyzed your measurements against <span class="protocol-name">{{data.protocol}}</span> protocol</h3>
+  <div *ngIf="data.severity == 'info'">
+    Everything is OK. Keep what you are doing
+  </div>
+  <h4>Details</h4>
+  <p *ngIf="data.severity != 'info'">
+    {{data.description}}
+  </p>
+  <div *ngIf="data.severity != 'info'">
+    <p>We recommend the following:</p>
+    <p>Set reminder for <a class="add-reminder-link" (click)="navigateToReminders(data.reminder)">{{data.reminder}}</a></p>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="ok-btn" mat-button mat-dialog-close>OK</button>
+</mat-dialog-actions>

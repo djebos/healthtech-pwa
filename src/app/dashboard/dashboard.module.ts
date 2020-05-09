@@ -5,7 +5,7 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {MatCardModule} from '@angular/material/card';
 import {
-  MatButtonModule, MatCheckboxModule,
+  MatButtonModule, MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -29,28 +29,36 @@ import { ReminderListComponent } from './reminders/reminder-list/reminder-list.c
 import { AddReminderComponent } from './reminders/add-reminder/add-reminder.component';
 import { RemindersRootComponent } from './reminders/reminders-root/reminders-root.component';
 import {OwlDateTimeModule} from 'ng-pick-datetime';
+import { RecommendationPopupComponent } from './recommendations/recommendation-popup/recommendation-popup.component';
+import { MeasurementChartComponent } from './measurement-chart/measurement-chart.component';
+import {ChartsModule} from 'ng2-charts';
 
 
 @NgModule({
-  declarations: [DashboardComponent, MeasurementListComponent, AddMeasurementComponent, PulseComponent, WeightComponent, GlucoseComponent, TempComponent, PressureComponent, RecommendationListComponent, ProfileSettingsComponent, ReminderListComponent, AddReminderComponent, RemindersRootComponent],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    DashboardRoutingModule,
-    MatButtonModule,
-    FlexLayoutModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressBarModule,
-    DefaultModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    OwlDateTimeModule,
-    MatCheckboxModule,
-    FormsModule,
-    MatToolbarModule
+  declarations: [DashboardComponent, MeasurementListComponent, AddMeasurementComponent, PulseComponent, WeightComponent, GlucoseComponent, TempComponent, PressureComponent, RecommendationListComponent, ProfileSettingsComponent, ReminderListComponent, AddReminderComponent, RemindersRootComponent, RecommendationPopupComponent, MeasurementChartComponent],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        DashboardRoutingModule,
+        MatButtonModule,
+        FlexLayoutModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressBarModule,
+        DefaultModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        OwlDateTimeModule,
+        MatCheckboxModule,
+        FormsModule,
+        MatToolbarModule,
+        MatDialogModule,
+        ChartsModule
+    ],
+  entryComponents: [
+    RecommendationPopupComponent
   ],
   providers: [DatePipe]
 })

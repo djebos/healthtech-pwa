@@ -1,3 +1,31 @@
-<p>
-  recommendation-list works!
-</p>
+<div class="analyze-btn-container" fxLayout="column" fxLayoutAlign="center center" xmlns="http://www.w3.org/1999/html">
+  <button class="analyze-btn" mat-button color="primary" (click)="analyseMeasurements()"><span class="analyze-btn-text">Analyze my measurements</span>
+  </button>
+  <form [formGroup]="analysisPeriodForm" class="reminder-form" fxLayout="column" fxLayoutGap="20px">
+    <mat-form-field class="analysis-period">
+      <mat-label>Period</mat-label>
+      <mat-select formControlName="analysisPeriod">
+        <mat-option value="Week">Week</mat-option>
+        <mat-option value="Month">Month</mat-option>
+        <mat-option value="Year">Year</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<mat-divider class="divider"></mat-divider>
+<mat-list fxLayout="column" fxLayoutAlign="start center" class="recommendation-history">
+  <h3 class="recommendations-header" mat-subheader>Results</h3>
+    <mat-list-item  *ngFor="let recommendation of recommendations" (click)="openRecommendationPopUp(recommendation)">
+      <div mat-line fxLayout="row" fxLayoutAlign="space-between center" class="recommendation-history-entry">
+        <mat-icon *ngIf="recommendation.severityLevel == 'info'" mat-list-icon color="primary">info</mat-icon>
+        <mat-icon *ngIf="recommendation.severityLevel == 'warn'" mat-list-icon color="accent">warning</mat-icon>
+        <mat-icon *ngIf="recommendation.severityLevel == 'immediate_reaction'" mat-list-icon color="warn">error</mat-icon>
+        <span class="recommendation-history-entry-value">{{recommendation.description}}</span>
+        <span class="recommendation-history-entry-unit">{{recommendation.reminder}}</span>
+      </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  <div *ngIf="recommendations.length < 1" class="no-recommendations-found" fxLayout="column" fxLayoutAlign="center center">
+    <p class="no-recommendations-found-text">No recommendations found</p>
+  </div>
+</mat-list>

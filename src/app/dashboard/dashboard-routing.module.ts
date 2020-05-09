@@ -15,6 +15,7 @@ import {RecommendationListComponent} from './recommendations/recommendation-list
 import {ReminderListComponent} from './reminders/reminder-list/reminder-list.component';
 import {AddReminderComponent} from './reminders/add-reminder/add-reminder.component';
 import {RemindersRootComponent} from './reminders/reminders-root/reminders-root.component';
+import {MeasurementChartComponent} from './measurement-chart/measurement-chart.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,12 @@ const routes: Routes = [
       {path: 'glucose', component: GlucoseComponent},
       {path: 'temp', component: TempComponent}
     ]
+  },
+  {
+    path: 'chart',
+    component: MeasurementChartComponent,
+    canActivate: [AuthGuard, AuthorizationGuard],
+    data: {roles: ['USER']}
   },
   {
     path: 'reminders',

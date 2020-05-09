@@ -11,12 +11,14 @@ import {CreatePressureRequest} from '../data/CreatePressureRequest';
 import {CreateTempRequest} from '../data/CreateTempRequest';
 import {CreateWeightRequest} from '../data/CreateWeightRequest';
 import {CreateGlucoseRequest} from '../data/CreateGlucoseRequest';
+import {DatePipe} from '@angular/common';
+import {HttpParamEncoder} from '../../shared/modules/default/http-param-encoder';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeasurementService {
-  private readonly measurementTypeToUnitMapping: Map<MeasurementType, MeasurementUnit> = new Map<MeasurementType, MeasurementUnit>(
+  public static readonly measurementTypeToUnitMapping: Map<MeasurementType, MeasurementUnit> = new Map<MeasurementType, MeasurementUnit>(
     [[MeasurementType.WEIGHT, MeasurementUnit.KILOGRAM], [MeasurementType.GLUCOSE, MeasurementUnit.MMOL_PER_LITRE],
       [MeasurementType.PULSE, MeasurementUnit.BEATS_PER_MINUTE], [MeasurementType.TEMPERATURE, MeasurementUnit.CELSIUS_DEGREES],
       [MeasurementType.PRESSURE, MeasurementUnit.MERCURY_MM]]
@@ -24,7 +26,7 @@ export class MeasurementService {
 
   private readonly measurementEntriesResourcePath = '/v1/measurements';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private datePipe: DatePipe) {
   }
 
   public getMeasurementEntries(pageToLoad: number): Observable<MeasurementsByDate[]> {
@@ -34,6 +36,19 @@ export class MeasurementService {
       }
     });
     return this.http.get<MeasurementsByDate[]>(environment.apiUrl + this.measurementEntriesResourcePath, {params});
+  }
+
+  public getMeasurementEntriesInTimeRange(start: Date, end: Date): Observable<MeasurementEntry[]> {
+    console.log('start: ' + start);
+    console.log('end: ' + end);
+    const params = new HttpParams({
+      fromObject: {
+        start: this.datePipe.transform(start, 'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ'),
+        end: this.datePipe.transform(end, 'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
+      },
+      encoder: new HttpParamEncoder()
+    });
+    return this.http.get<MeasurementEntry[]>(environment.apiUrl + '/v1/measurements', {params});
   }
 
   public createPulse(newPulse: CreatePulseRequest): Observable<MeasurementEntry> {
@@ -57,6 +72,6 @@ export class MeasurementService {
   }
 
   public getUnitForType(type: MeasurementType): MeasurementUnit {
-    return this.measurementTypeToUnitMapping.get(type);
+    return MeasurementService.measurementTypeToUnitMapping.get(type);
   }
 }
