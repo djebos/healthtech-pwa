@@ -5,13 +5,13 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {MatCardModule} from '@angular/material/card';
 import {
-  MatButtonModule, MatCheckboxModule, MatDialogModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatProgressBarModule,
-  MatSelectModule, MatToolbarModule
+    MatButtonModule, MatButtonToggleModule, MatCheckboxModule, MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatSelectModule, MatToolbarModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MeasurementListComponent} from './measurement-list/measurement-list.component';
@@ -55,7 +55,8 @@ import {ChartsModule} from 'ng2-charts';
         FormsModule,
         MatToolbarModule,
         MatDialogModule,
-        ChartsModule
+        ChartsModule,
+        MatButtonToggleModule
     ],
   entryComponents: [
     RecommendationPopupComponent

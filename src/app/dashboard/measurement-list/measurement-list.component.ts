@@ -1,6 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {MeasurementService} from '../service/MeasurementService';
 import {MeasurementsByDate} from '../data/MeasurementsByDate';
+import {MatButtonToggleChange} from '@angular/material';
 
 @Component({
   selector: 'app-measurement-list',
@@ -11,13 +12,14 @@ export class MeasurementListComponent implements OnInit {
   loadedPage = 0;
   measurements: MeasurementsByDate[] = [];
   isLoading = false;
+  types = ['all'];
 
   constructor(private measurementService: MeasurementService) {
   }
 
   ngOnInit() {
     this.isLoading = true;
-    this.measurementService.getMeasurementEntries(this.loadedPage)
+    this.measurementService.getMeasurementEntries(this.types, this.loadedPage)
       .subscribe(next => this.pushNewMeasurements(next), this.cancelLoading());
   }
 
@@ -35,7 +37,7 @@ export class MeasurementListComponent implements OnInit {
       if (measurementsToMerge) {
         measurementsToMerge.measurements.push(...newMeasurementsByDate.measurements);
       } else {
-       this.measurements.push(newMeasurementsByDate);
+        this.measurements.push(newMeasurementsByDate);
       }
     });
     this.isLoading = false;
@@ -43,9 +45,7 @@ export class MeasurementListComponent implements OnInit {
 
   @HostListener('scroll', ['$event'])
   onScroll(event) {
-    // do tracking
-    console.log('scrolled', event.target.scrollTop);
-    // Listen to click events in the component
+
     const tracker = event.target;
 
     const limit = tracker.scrollHeight - tracker.clientHeight;
@@ -53,8 +53,31 @@ export class MeasurementListComponent implements OnInit {
     if (event.target.scrollTop === limit) {
       this.loadedPage++;
       this.isLoading = true;
-      this.measurementService.getMeasurementEntries(this.loadedPage)
-        .subscribe(newMeasurements => this.pushNewMeasurements(newMeasurements), this.cancelLoading());
+
     }
+  }
+
+  loadMeasurements() {
+    this.measurementService.getMeasurementEntries(this.types, this.loadedPage)
+      .subscribe(newMeasurements => this.pushNewMeasurements(newMeasurements), this.cancelLoading());
+  }
+
+  onMeasurementTypeChange(event: MatButtonToggleChange) {
+    console.log('current types: ', this.types);
+    if (this.types.length === 0 || event.source.value === 'all') {
+      console.log('no types selected, resetting to all');
+      this.types = ['all'];
+    } else if (this.types.length > 1 && this.types.includes('all')) {
+      const selectedTypes: string[] = [...this.types];
+      console.log('selected ' + selectedTypes + ' ');
+      const withoutAll: string[] = selectedTypes.splice(selectedTypes.indexOf('all') - 1, 1);
+      console.log('without all: ' + selectedTypes + ' ');
+      this.types = withoutAll;
+    }
+    this.measurementService.getMeasurementEntries(this.types, this.loadedPage)
+      .subscribe(newMeasurements => {
+        this.measurements = newMeasurements;
+        this.isLoading = false;
+      }, error => this.isLoading = false);
   }
 }

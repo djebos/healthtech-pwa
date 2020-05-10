@@ -1,43 +1,41 @@
-<div fxLayout="row" class="measurement-types-container">
-  <div class="measurement-types-buttons-container" fxLayout="row wrap" fxLayoutAlign="space-between space-between">
-    <button mat-button>
+  <mat-button-toggle-group [(ngModel)]="types" class="measurement-types-buttons-container" fxLayout="row wrap" fxLayoutAlign="space-between space-between" [multiple]="true" (change)="onMeasurementTypeChange($event)">
+    <mat-button-toggle value="pulse" class="type-toggle">
       <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
         <mat-icon svgIcon="pulse"></mat-icon>
         <span>Pulse</span>
       </div>
-    </button>
-    <button mat-button>
+    </mat-button-toggle>
+    <mat-button-toggle value="pressure" class="type-toggle">
       <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
         <mat-icon svgIcon="pressure"></mat-icon>
         <span>Pressure</span>
       </div>
-    </button>
-    <button mat-button>
+    </mat-button-toggle>
+    <mat-button-toggle value="glucose" class="type-toggle">
       <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
         <mat-icon svgIcon="glucose"></mat-icon>
         <span>Glucose</span>
       </div>
-    </button>
-    <button mat-button>
+    </mat-button-toggle>
+    <mat-button-toggle value="weight" class="type-toggle">
       <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
         <mat-icon svgIcon="weight"></mat-icon>
         <span>Weight</span>
       </div>
-    </button>
-    <button mat-button>
+    </mat-button-toggle>
+    <mat-button-toggle value="temperature" class="type-toggle">
       <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
         <mat-icon svgIcon="temperature"></mat-icon>
         <span>Temp</span>
       </div>
-    </button>
-    <button mat-button>
+    </mat-button-toggle>
+    <mat-button-toggle value="all" class="type-toggle">
       <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
         <i class="material-icons" aria-hidden="false" aria-label="All">add</i>
         <span>All</span>
       </div>
-    </button>
-  </div>
-</div>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 
 <mat-list fxLayout="column" fxLayoutAlign="start center" class="measurement-history" (scroll)="onScroll($event)">
   <h3 class="measurements-header" mat-subheader>History</h3>

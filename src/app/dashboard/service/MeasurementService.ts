@@ -29,10 +29,15 @@ export class MeasurementService {
   constructor(private http: HttpClient, private datePipe: DatePipe) {
   }
 
-  public getMeasurementEntries(pageToLoad: number): Observable<MeasurementsByDate[]> {
+  public getMeasurementEntries(measurementTypes: string[], pageToLoad: number): Observable<MeasurementsByDate[]> {
+    let typesToLoad: string[] = measurementTypes;
+    if (typesToLoad.includes('all')) {
+      typesToLoad = ['temperature', 'glucose', 'weight', 'pressure', 'pulse'];
+    }
     const params = new HttpParams({
       fromObject: {
         page: pageToLoad.toString(),
+        types: typesToLoad.join(',')
       }
     });
     return this.http.get<MeasurementsByDate[]>(environment.apiUrl + this.measurementEntriesResourcePath, {params});

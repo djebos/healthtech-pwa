@@ -40,7 +40,7 @@
     </mat-icon>
   </div>
 </div>
-<div class="chart-container">
+<div class="chart-container" *ngIf="data.length > 0">
   <canvas class="chart-canvas" baseChart
           [datasets]="data"
           [labels]="labels"

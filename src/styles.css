@@ -7,3 +7,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #f44336;
   color: #FFFFFF;
 }
+
+.mat-button-toggle-group-appearance-standard {
+  border: none !important;
+}
+
+.mat-button-toggle-label-content {
+  line-height: 24px !important;
+}

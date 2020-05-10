@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
-import {MeasurementService} from '../service/MeasurementService';
-import {CreateMeasurementRequest} from '../data/CreateMeasurementRequest';
 import {MeasurementType} from '../data/MeasurementType';
 import {EnumUtils} from '../data/EnumUtils';
 import {Router} from '@angular/router';

@@ -34,9 +34,7 @@ export class MeasurementChartComponent implements OnInit {
   public labels = [];
   public chartType = 'line';
   public legend = true;
-  public data = [
-    {data: [], label: ''},
-  ];
+  public data = [];
   chartPeriodForm: FormGroup = new FormGroup({
     chartPeriod: new FormControl('Month')
   });
@@ -72,14 +70,14 @@ export class MeasurementChartComponent implements OnInit {
           this.data = [{
             data: this.measurements.map(measurement => Number.parseFloat(measurement.value.substring(0, measurement.value.indexOf('/')))),
             label: 'systolic, ' + MeasurementService.measurementTypeToUnitMapping.get(MeasurementType.PRESSURE),
-            fill: false,
+            fill: 'false',
             lineTension: 0
           },
             {
               data: this.measurements
                 .map(measurement => Number.parseFloat(measurement.value.substring(measurement.value.indexOf('/') + 1))),
               label: 'diastolic, ' + MeasurementService.measurementTypeToUnitMapping.get(MeasurementType.PRESSURE),
-              fill: false,
+              fill: 'false',
               lineTension: 0
             }
           ];
@@ -87,7 +85,7 @@ export class MeasurementChartComponent implements OnInit {
           this.data = [{
             data: this.measurements.map(measurement => Number.parseFloat(measurement.value)),
             label: this.measurementTypeSelected + ', ' + MeasurementService.measurementTypeToUnitMapping.get(this.measurementTypeSelected),
-            fill: false,
+            fill: 'false',
             lineTension: 0
           }];
         }
