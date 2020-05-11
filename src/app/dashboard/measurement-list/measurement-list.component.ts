@@ -78,6 +78,9 @@ export class MeasurementListComponent implements OnInit {
       .subscribe(newMeasurements => {
         this.measurements = newMeasurements;
         this.isLoading = false;
-      }, error => this.isLoading = false);
+      }, error => {
+        this.isLoading = false;
+        this.measurements = [];
+      });
   }
 }

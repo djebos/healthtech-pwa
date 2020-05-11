@@ -1,4 +1,6 @@
-  <mat-button-toggle-group [(ngModel)]="types" class="measurement-types-buttons-container" fxLayout="row wrap" fxLayoutAlign="space-between space-between" [multiple]="true" (change)="onMeasurementTypeChange($event)">
+<div class="measurement-types-container">
+  <mat-button-toggle-group [(ngModel)]="types" fxLayout="row wrap" fxLayoutAlign="space-between space-between"
+                           [multiple]="true" (change)="onMeasurementTypeChange($event)">
     <mat-button-toggle value="pulse" class="type-toggle">
       <div class="button-container" fxLayout="column" fxLayoutAlign="center center">
         <mat-icon svgIcon="pulse"></mat-icon>
@@ -36,7 +38,7 @@
       </div>
     </mat-button-toggle>
   </mat-button-toggle-group>
-
+</div>
 <mat-list fxLayout="column" fxLayoutAlign="start center" class="measurement-history" (scroll)="onScroll($event)">
   <h3 class="measurements-header" mat-subheader>History</h3>
   <div *ngFor="let measurementsByDate of measurements" class="measurements-by-date-container">

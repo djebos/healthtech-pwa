@@ -16,6 +16,7 @@ import {ReminderListComponent} from './reminders/reminder-list/reminder-list.com
 import {AddReminderComponent} from './reminders/add-reminder/add-reminder.component';
 import {RemindersRootComponent} from './reminders/reminders-root/reminders-root.component';
 import {MeasurementChartComponent} from './measurement-chart/measurement-chart.component';
+import {UpdateProfileComponent} from './settings/update-profile/update-profile.component';
 
 const routes: Routes = [
   {
@@ -65,7 +66,13 @@ const routes: Routes = [
     path: 'settings',
     component: ProfileSettingsComponent,
     canActivate: [AuthGuard, AuthorizationGuard],
-    data: {roles: ['USER']}
+    data: {roles: ['USER']},
+  },
+  {
+    path: 'settings/update',
+    component: UpdateProfileComponent,
+    canActivate: [AuthGuard, AuthorizationGuard],
+    data: {roles: ['USER']},
   },
   {
     path: 'recommendations',

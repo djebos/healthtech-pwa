@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   align-content: center;
-  justify-content: center;
   margin: auto;
   position: relative;
   height: 93%;
@@ -12,7 +11,6 @@
 .measurement-types-container {
   margin-top: 10px;
   height: 10%;
-  padding-top: 10px;
   width: 100%;
 }
 
@@ -23,7 +21,8 @@
 }
 
 .measurement-history {
-  height: 85%;
+  margin-top: 10px;
+  height: 88%;
   overflow-y: scroll;
   position: relative;
 }

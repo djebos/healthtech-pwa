@@ -1,0 +1,23 @@
+<div fxLayout="column" fxLayoutAlign=" center" fxLayoutGap="20px">
+  <img *ngIf="srcResult; else elseBlock" class="profile-image" [src]="srcResult"/>
+  <ng-template #elseBlock>
+    <img class="profile-image" [src]="user.pictureUrl"/>
+  </ng-template>
+  <button type="button" mat-raised-button (click)="fileInput.click()">Choose Image</button>
+  <div class="update-profile-container" fxLayout="column" fxLayoutAlign=" start">
+    <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+    <mat-form-field class="update-profile-birthday-container">
+      <mat-label>Birthday</mat-label>
+      <input class="update-profile-birthday" matInput [(ngModel)]="user.birthDate" [owlDateTimeTrigger]="dt" [max]="currentDate"
+             [owlDateTime]="dt"/>
+      <owl-date-time [pickerMode]="'dialog'" pickerType="calendar" #dt></owl-date-time>
+    </mat-form-field>
+    <div class="update-profile-height-container">
+      <mat-label>Height</mat-label>
+      <mat-slider class="update-profile-height" [(ngModel)]="user.height" [thumbLabel]="true" min="100" max="300" step="0.5"></mat-slider>
+    </div>
+  </div>
+</div>
+<div class="update-profile-btn-container">
+  <button class="update-profile-btn" mat-button color="primary" [disabled]="false" (click)="updateProfile()">Update Profile</button>
+</div>
